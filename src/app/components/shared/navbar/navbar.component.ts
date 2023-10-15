@@ -18,7 +18,15 @@ export class NavbarComponent implements OnInit{
   ngOnInit() {
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
-      { label: 'Cursos', icon: 'pi pi-fw pi-calendar'},
+      { label: 'Cursos', icon: 'pi pi-fw pi-calendar', routerLink: ['/courses'],
+        items: [
+          {
+            label: 'Crear',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: ['/courses/create']
+          },
+    ]
+        },
       { label: 'Iniciar sesión', icon: 'pi pi-fw pi-user',  command: () => this.login()  },
       { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: '/home'}
 

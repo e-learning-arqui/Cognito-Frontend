@@ -29,6 +29,7 @@
             ],
             "scripts": []
           },
+
           "configurations": {
             "production": {
               "budgets": [
@@ -91,6 +92,23 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css"
             ],
             "scripts": []
+
+          },
+          "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
           }
         }
       }

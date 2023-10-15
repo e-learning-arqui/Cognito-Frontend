@@ -1,0 +1,59 @@
+
+
+<div class="grid ">
+  <h2 class="grid-col-12">Crear Curso</h2>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="grid-row">
+    <div class="grid-col-6">
+
+      <span class="p-float-label">
+        <input pInputText id="title" formControlName="title" />
+        <label>Título del curso</label>
+      </span>
+    </div>
+
+    <div class="grid-col-6">
+      <p-dropdown formControlName="selectedLanguage" [options]="languages" optionLabel="languageName"></p-dropdown>
+    </div>
+
+    <div class="grid-col-6">
+      <p-dropdown formControlName="selectedLevel" [options]="levels" optionLabel="levelName"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="grid-row">
+    <div class="grid-col-6">
+      <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+    </div>
+
+    <div class="grid-col-6">
+      <p-inputNumber formControlName="duration" inputId="minutes" suffix=" min"> </p-inputNumber>
+    </div>
+
+    <div class="grid-col-6">
+      <p-dropdown [options]="groupedCategories" formControlName="selectedSubCategory" placeholder="Selecciona una categoría" [group]="true">
+        <ng-template let-group pTemplate="group">
+          <div class="flex align-items-center">
+            <span>{{ group.label }}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+  </div>
+
+  <div class="grid-row">
+    <div class="grid-col-12">
+      <p-toast></p-toast>
+      <p-confirmPopup></p-confirmPopup>
+      <button type="button" pButton label="Crear Curso" [disabled]="!formGroup.valid" (click)="confirm($event)" ></button>
+    </div>
+  </div>
+  </form>
+</div>
+
+
+
+
+

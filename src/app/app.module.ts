@@ -9,6 +9,19 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import {TabMenuModule} from "primeng/tabmenu";
 import { HomeComponent } from './components/shared/home/home.component';
 import {MenubarModule} from "primeng/menubar";
+import { CourseListComponent } from './components/course-list/course-list.component';
+import {DataViewModule} from "primeng/dataview";
+import {RouterModule} from "@angular/router";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {PaginatorModule} from "primeng/paginator";
+import { CourseFormComponent } from './components/courses/course-form/course-form.component';
+import {InputTextModule} from "primeng/inputtext";
+import {ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {ToastModule} from "primeng/toast";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -32,6 +45,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppComponent,
     NavbarComponent,
     HomeComponent,
+    CourseListComponent,
+    CourseFormComponent,
 
   ],
   imports: [
@@ -40,7 +55,17 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ButtonModule,
     TabMenuModule,
     MenubarModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    DataViewModule,
+    RouterModule,
+    HttpClientModule,
+    PaginatorModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    InputTextareaModule,
+    ToastModule,
+    ConfirmPopupModule,
   ],
   providers: [
     {
@@ -48,7 +73,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
       useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    ConfirmationService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
