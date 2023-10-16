@@ -3,7 +3,7 @@
 <div class="grid ">
   <h2 class="grid-col-12">Crear Curso</h2>
 
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formGroup"  enctype="multipart/form-data" (ngSubmit)="onSubmit()">
   <div class="grid-row">
     <div class="grid-col-6">
 
@@ -40,13 +40,16 @@
         </ng-template>
       </p-dropdown>
     </div>
+<!--    <input type="file" name="file" formControlName="filesR"  (change)="onChanges($event)" />-->
 
   </div>
 
-  <div class="grid-row">
+
+    <div class="grid-row">
     <div class="grid-col-12">
       <p-toast></p-toast>
       <p-confirmPopup></p-confirmPopup>
+
       <button type="button" pButton label="Crear Curso" [disabled]="!formGroup.valid" (click)="confirm($event)" ></button>
     </div>
   </div>

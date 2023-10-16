@@ -1,18 +1,20 @@
 import {createStore, withProps, select, setProps} from '@ngneat/elf';
-import {selectAllEntities, setEntities, upsertEntities, withEntities} from "@ngneat/elf-entities";
+import {selectAllEntities, setEntities, updateEntities, upsertEntities, withEntities} from "@ngneat/elf-entities";
 import {ApiResponse, Paginator} from "../model/paginator";
 import {Injectable} from "@angular/core";
+import {Course} from "../model/Course";
 
-export interface Course {
-  id: number;
-  title: string;
-  description: string;
-  amount: number;
-  duration: number;
-  languageId: number;
-  levelId: number;
-  subCategoryId: number;
-}
+// export interface Course {
+//   id: number;
+//   title: string;
+//   description: string;
+//   amount: number;
+//   duration: number;
+//   languageId: number;
+//   levelId: number;
+//   subCategoryId: number;
+//   logoUrl: string;
+// }
 
 export interface CourseProps {
   totalElements: number;
@@ -34,11 +36,11 @@ const courseStore = createStore(
   course$ = courseStore.pipe(selectAllEntities());
 
   getCourseProps(){
-    return courseStore.query(((state) => state));
+    return courseStore.query((state) => state);
   }
 
   setCourses(response: Paginator<Course>) {
-    courseStore.update(setEntities(response.content),
+    courseStore.update(upsertEntities(response.content),
       setProps({
         currentPage: response.number,
         totalElements: response.totalElements,

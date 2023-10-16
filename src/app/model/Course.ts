@@ -7,5 +7,6 @@ export interface Course{
     languageId: number;
     levelId: number;
     subCategoryId: number;
+    logoUrl: string;
 
 }

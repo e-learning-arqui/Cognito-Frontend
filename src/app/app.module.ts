@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER} from '@angular/core';
+import {NgModule, APP_INITIALIZER, forwardRef} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -9,19 +9,25 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import {TabMenuModule} from "primeng/tabmenu";
 import { HomeComponent } from './components/shared/home/home.component';
 import {MenubarModule} from "primeng/menubar";
-import { CourseListComponent } from './components/course-list/course-list.component';
+import { CourseListComponent } from './components/courses/course-list/course-list.component';
 import {DataViewModule} from "primeng/dataview";
 import {RouterModule} from "@angular/router";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {PaginatorModule} from "primeng/paginator";
 import { CourseFormComponent } from './components/courses/course-form/course-form.component';
 import {InputTextModule} from "primeng/inputtext";
-import {ReactiveFormsModule} from "@angular/forms";
+import {NG_VALUE_ACCESSOR, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ToastModule} from "primeng/toast";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {CardModule} from "primeng/card";
+import {FileUploadModule} from "primeng/fileupload";
+import { CourseEditComponent } from './components/courses/course-edit/course-edit.component';
+import { UserRegisterComponent } from './components/user/user-register/user-register.component';
+import {PasswordModule} from "primeng/password";
+import {DividerModule} from "primeng/divider";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -47,6 +53,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     HomeComponent,
     CourseListComponent,
     CourseFormComponent,
+    CourseEditComponent,
+    UserRegisterComponent,
 
   ],
   imports: [
@@ -66,6 +74,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     InputTextareaModule,
     ToastModule,
     ConfirmPopupModule,
+    CardModule,
+    FileUploadModule,
+    PasswordModule,
+    DividerModule,
   ],
   providers: [
     {
@@ -74,6 +86,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       multi: true,
       deps: [KeycloakService]
     },
+
     ConfirmationService,
     MessageService
   ],

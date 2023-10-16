@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CourseRepository} from "../store/coursesStore";
 import {Environment} from "../environments/environment";
 import {Paginator, ApiResponse} from "../model/paginator";
@@ -15,29 +15,55 @@ export class CourseService {
   private http: HttpClient = inject(HttpClient)
   private coursesRepo = inject(CourseRepository);
 
-  constructor() { }
+  constructor() {
+
+  }
 
   getCourses(page: number, size: number) {
     return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?page=${page}&size=${size}`)
       .pipe(
-
         tap((response) => {
-          console.log(response.response);
           this.coursesRepo.setCourses(response.response);
+          console.log(response.response, " response back from server");
         })
       )
 
   }
   getCourses2(page: number, size: number) {
+
     return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?page=${page}&size=${size}`).subscribe((response) => {
-      console.log(response.response);
+      console.log(response.response, " response back from server");
       this.coursesRepo.setCourses(response.response);
     }
     )
   }
 
   createCourse(course: CourseDto){
-    return this.http.post<ApiResponse<String>>(`${this.API_URL}api/v1/courses`, course);
+    return this.http.post<ApiResponse<number>>(`${this.API_URL}api/v1/courses`, course)
+
+  }
+
+
+  getCourseById(id: number) {
+    return this.http.get<ApiResponse<Course>>(`${this.API_URL}api/v1/courses/${id}`)
+  }
+  uploadLogo(file: File, courseName: string) {
+    const formDataRequest = new FormData();
+    const headersR = new HttpHeaders();
+    headersR.append('Content-Type', 'multipart/form-data');
+    formDataRequest.append('file', file);
+    formDataRequest.append('courseName', courseName);
+    formDataRequest.append('bucketName', 'cognito-hub');
+    // @ts-ignore
+    return this.http.post<ApiResponse<String>>('http://localhost:8001/api/v1/files/logo', formDataRequest, { headersR });
+  }
+
+  getCourseLogo(courseName: string) {
+    return this.http.get<ApiResponse<String>>(`${this.API_URL}api/v1/courses/logo/${courseName}`).pipe(
+      tap((response) => {
+        console.log(response.response);
+      }
+    ));
   }
 
 }

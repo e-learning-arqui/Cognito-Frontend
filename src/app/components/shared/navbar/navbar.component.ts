@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit{
     ]
         },
       { label: 'Iniciar sesión', icon: 'pi pi-fw pi-user',  command: () => this.login()  },
-      { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: '/home'}
+      { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: ['register']}
 
     ];
     this.activeItem = this.items[0];

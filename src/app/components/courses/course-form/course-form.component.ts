@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {Component, forwardRef, inject} from '@angular/core';
+import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {CategoryService} from "../../../services/category.service";
 import {ConfirmationService, MessageService, SelectItemGroup} from "primeng/api";
 import {SubCategoryDto} from "../../../model/dto/SubCategoryDto";
@@ -10,13 +10,17 @@ import {LevelDto} from "../../../model/dto/LevelDto";
 import {KeycloakService} from "keycloak-angular";
 import {CourseDto} from "../../../model/dto/CourseDto";
 import {CourseService} from "../../../services/course.service";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
-  styleUrls: ['./course-form.component.css']
+  styleUrls: ['./course-form.component.css'],
+
 })
 export class CourseFormComponent {
+
+
 
   //Services injection
   categoryService : CategoryService = inject(CategoryService);
@@ -26,9 +30,9 @@ export class CourseFormComponent {
   confirmationService: ConfirmationService = inject(ConfirmationService);
   messageService: MessageService = inject(MessageService);
   courseService: CourseService = inject(CourseService);
+  router: Router = inject(Router);
 
   groupedCategories: SelectItemGroup[] = [];
-
   languages: LanguageDto[] | undefined;
   levels: LevelDto[] | undefined;
   formGroup! : FormGroup;
@@ -46,6 +50,7 @@ export class CourseFormComponent {
       description: new FormControl<string>(''),
       title: new FormControl<string>(''),
       duration: new FormControl<number>(0),
+      filesR: new FormControl<File[]>([]),
     });
   }
 
@@ -92,8 +97,8 @@ export class CourseFormComponent {
   }
 
   onSubmit() {
-    console.log(this.formGroup.value);
-   console.log(this.toCourseDto(this.formGroup));
+
+    console.log(this.formGroup.value.files);
   }
 
   confirm(event: Event){
@@ -105,10 +110,14 @@ export class CourseFormComponent {
         this.messageService.add({severity:'success', summary:'Confirmado', detail:'Curso creado exitosamente!'});
         this.onSubmit();
         this.courseService.createCourse(this.toCourseDto(this.formGroup)).subscribe((response) => {
-          console.log(response.response);
-        }
-        )
+          if(response.code == '0000'){
+            this.messageService.add({severity:'success', summary:'Confirmado', detail:'Curso creado exitosamente!'});
+          this.router.navigate([`courses/${response.response}/edit`]).then(r => console.log(r))
+          }else{
+            this.messageService.add({severity:'error', summary:'Error', detail:'No se pudo crear el curso!'});
 
+          }
+        });
       },
       reject: () => {
         this.messageService.add({severity:'error', summary:'Cancelado', detail:'Se cancelo la creación del curso!'});
@@ -131,9 +140,16 @@ export class CourseFormComponent {
 
     }
   }
+  onChanges(event: Event): void {
 
+    // @ts-ignore
+    const fileList = (event.target as HTMLInputElement).files[0];
+    console.log(fileList);
+    if (fileList) {
+      this.formGroup.patchValue({
+        filesR: fileList
+      });
+    }
 
-
-
-
+  }
 }
