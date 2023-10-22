@@ -1,0 +1,12 @@
+p-menubar a {
+    text-decoration: none !important;
+}
+body p-menubar a {
+    text-decoration: none !important;
+}
+a {
+    text-decoration: none !important;
+}
+p-menubar .p-menuitem-link a {
+    text-decoration: none !important;
+}

@@ -20,6 +20,12 @@ export interface CourseProps {
   totalElements: number;
   totalPages: number;
   currentPage: number;
+  /*filters: {
+    title?: string;
+    languageId?: number;
+    levelId?: number;
+    categoryId?: number;
+  };*/
 }
 
 
@@ -28,7 +34,7 @@ export interface CourseProps {
 const courseStore = createStore(
   { name: 'courses' },
   withEntities<Course>(),
-  withProps<CourseProps>({totalElements: 0, totalPages: 0, currentPage: 0})
+  withProps<CourseProps>({totalElements: 0, totalPages: 0, currentPage: 0/*,filters: {}*/})
 );
 
 
@@ -53,6 +59,15 @@ const courseStore = createStore(
   addCourse(course: Course) {
     courseStore.update(upsertEntities(course));
   }
+
+  /*
+  setFilters(filters: CourseProps['filters']) {
+    courseStore.update(setProps({ filters }));
+  }
+  
+  getFilters() {
+    return courseStore.query((state) => state.filters);
+  }*/
 
 }
 

@@ -1,23 +1,49 @@
-<div class="container">
-<div class="card-container d-grid p-grid justify-content-center">
-  <div class="card mb-5 " *ngFor="let course of courses ">
-    <p-card [header]="course.title" subheader="Course Subheader" [style]="{ width: '360px' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" [src]="course.logoUrl" />
-      </ng-template>
-      <p>
-        {{ course.description }}
-      </p>
-      <ng-template pTemplate="footer">
-        <p-button label="Comenzar" icon="pi pi-check"></p-button>
+<div class="container mt-4">
 
-      </ng-template>
-    </p-card>
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Buscar...">
+    </div>
   </div>
 
-  <div class="card flex justify-content-center">
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows!" [totalRecords]="totalElements"
-                 ></p-paginator>
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-2">
+      <label>Categoría</label>
+      <p-dropdown [options]="categories" placeholder="Selecciona categoría" optionLabel="categoryName"></p-dropdown>
+    </div>
+    <div class="col-md-2">
+      <label>Idioma</label>
+      <p-dropdown [options]="languages" placeholder="Selecciona idioma" optionLabel="languageName"></p-dropdown>
+    </div>
+    <div class="col-md-2">
+      <label>Nivel</label>
+      
+      <p-dropdown [options]="levels" placeholder="Selecciona nivel" optionLabel="levelName"></p-dropdown>
+    </div>
+    <div class="col-md-2">
+      <button pButton type="button" label="Limpiar filtro" class="btn btn-secondary"></button>
+    </div>
   </div>
-</div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-5" *ngFor="let course of courses">
+      <div class="card">
+        <img class="card-img-top" [src]="course.logoUrl" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ course.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Course Subheader</h6>
+          <p class="card-text">{{ course.description }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+          <button pButton type="button" label="Comenzar" icon="pi pi-check" class="btn btn-primary"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12 d-flex justify-content-center">
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows!" [totalRecords]="totalElements"></p-paginator>
+    </div>
+  </div>
 </div>

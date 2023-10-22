@@ -18,7 +18,25 @@ export class CourseService {
   constructor() {
 
   }
-
+  /*
+  getCourses(page: number, size: number) {
+    const filters = this.coursesRepo.getFilters();
+    let params = `page=${page}&size=${size}`;
+    
+    if(filters.title) params += `&title=${filters.title}`;
+    if(filters.languageId) params += `&languageId=${filters.languageId}`;
+    if(filters.levelId) params += `&levelId=${filters.levelId}`;
+    if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
+  
+    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?${params}`)
+      .pipe(
+        tap((response) => {
+          this.coursesRepo.setCourses(response.response);
+        })
+      )
+  }*/
+  
+  
   getCourses(page: number, size: number) {
     return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?page=${page}&size=${size}`)
       .pipe(
