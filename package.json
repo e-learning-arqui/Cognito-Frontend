@@ -21,6 +21,7 @@
     "@ngneat/elf": "^2.4.0",
     "@ngneat/elf-entities": "^4.5.0",
     "@ngneat/elf-pagination": "^1.1.0",
+    "@ngneat/elf-persist-state": "^1.1.6",
     "keycloak-angular": "^14.1.0",
     "keycloak-js": "^22.0.4",
     "primeflex": "^3.3.1",

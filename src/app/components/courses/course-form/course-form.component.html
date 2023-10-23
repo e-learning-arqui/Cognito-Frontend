@@ -1,62 +1,50 @@
+<div class="form-container">
+  <h2>Crear Curso</h2>
 
+  <form [formGroup]="formGroup" enctype="multipart/form-data" (ngSubmit)="onSubmit()" class="form-content">
+    <div class="form-row">
+      <div class="form-field">
+        <span class="input-label">
+          <input pInputText id="title" formControlName="title" />
+          <label>Título del curso</label>
+        </span>
+      </div>
 
-<div class="grid ">
-  <h2 class="grid-col-12">Crear Curso</h2>
+      <div class="form-field">
+        <p-dropdown formControlName="selectedLanguage" [options]="languages" optionLabel="languageName"></p-dropdown>
+      </div>
 
-  <form [formGroup]="formGroup"  enctype="multipart/form-data" (ngSubmit)="onSubmit()">
-  <div class="grid-row">
-    <div class="grid-col-6">
-
-      <span class="p-float-label">
-        <input pInputText id="title" formControlName="title" />
-        <label>Título del curso</label>
-      </span>
+      <div class="form-field">
+        <p-dropdown formControlName="selectedLevel" [options]="levels" optionLabel="levelName"></p-dropdown>
+      </div>
     </div>
 
-    <div class="grid-col-6">
-      <p-dropdown formControlName="selectedLanguage" [options]="languages" optionLabel="languageName"></p-dropdown>
+    <div class="form-row">
+      <div class="form-field">
+        <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+      </div>
+
+      <div class="form-field">
+        <p-inputNumber formControlName="duration" inputId="minutes" suffix=" min"> </p-inputNumber>
+      </div>
+
+      <div class="form-field">
+        <p-dropdown [options]="groupedCategories" formControlName="selectedSubCategory" placeholder="Selecciona una categoría" [group]="true">
+          <ng-template let-group pTemplate="group">
+            <div class="group-label">
+              <span>{{ group.label }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
     </div>
 
-    <div class="grid-col-6">
-      <p-dropdown formControlName="selectedLevel" [options]="levels" optionLabel="levelName"></p-dropdown>
+    <div class="form-row">
+      <div class="form-field full-width">
+        <p-toast></p-toast>
+        <p-confirmPopup></p-confirmPopup>
+        <button type="button" pButton label="Crear Curso" [disabled]="!formGroup.valid" (click)="confirm($event)" class="submit-button"></button>
+      </div>
     </div>
-  </div>
-
-  <div class="grid-row">
-    <div class="grid-col-6">
-      <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
-    </div>
-
-    <div class="grid-col-6">
-      <p-inputNumber formControlName="duration" inputId="minutes" suffix=" min"> </p-inputNumber>
-    </div>
-
-    <div class="grid-col-6">
-      <p-dropdown [options]="groupedCategories" formControlName="selectedSubCategory" placeholder="Selecciona una categoría" [group]="true">
-        <ng-template let-group pTemplate="group">
-          <div class="flex align-items-center">
-            <span>{{ group.label }}</span>
-          </div>
-        </ng-template>
-      </p-dropdown>
-    </div>
-<!--    <input type="file" name="file" formControlName="filesR"  (change)="onChanges($event)" />-->
-
-  </div>
-
-
-    <div class="grid-row">
-    <div class="grid-col-12">
-      <p-toast></p-toast>
-      <p-confirmPopup></p-confirmPopup>
-
-      <button type="button" pButton label="Crear Curso" [disabled]="!formGroup.valid" (click)="confirm($event)" ></button>
-    </div>
-  </div>
   </form>
 </div>
-
-
-
-
-
