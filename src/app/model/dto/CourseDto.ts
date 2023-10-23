@@ -6,7 +6,7 @@ export interface CourseDto{
   duration: number;
   languageId: number;
   levelId: number;
-  subCategoryId: number;
+  subCategoryName: string;
   professorKeycloakId: string;
 
 }

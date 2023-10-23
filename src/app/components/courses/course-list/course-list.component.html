@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-2">
       <label>Nivel</label>
-      
+
       <p-dropdown [options]="levels" placeholder="Selecciona nivel" optionLabel="levelName"></p-dropdown>
     </div>
     <div class="col-md-2">
@@ -28,10 +28,10 @@
   <div class="row justify-content-center">
     <div class="col-md-4 mb-5" *ngFor="let course of courses">
       <div class="card">
-        <img class="card-img-top" [src]="course.logoUrl" alt="Card image cap">
+        <img class="card-img-top" [src]="course.logoUrl" alt="{{course.title}} image" [style]="{'height': '240px', 'width' : '100%'}">
         <div class="card-body">
           <h5 class="card-title">{{ course.title }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Course Subheader</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{course.subCategoryName}}</h6>
           <p class="card-text">{{ course.description }}</p>
         </div>
         <div class="card-footer d-flex justify-content-center">

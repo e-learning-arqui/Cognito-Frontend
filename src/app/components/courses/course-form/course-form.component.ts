@@ -130,7 +130,7 @@ export class CourseFormComponent {
       title: formGroup.value.title,
       description: formGroup.value.description,
       duration: formGroup.value.duration,
-      subCategoryId: formGroup.value.selectedSubCategory?.idSubCategory,
+      subCategoryName: formGroup.value.selectedSubCategory?.subCategoryName,
       languageId: formGroup.value.selectedLanguage?.languageId,
       levelId: formGroup.value.selectedLevel?.levelId,
       professorKeycloakId:  this.keycloak.getKeycloakInstance().subject!,

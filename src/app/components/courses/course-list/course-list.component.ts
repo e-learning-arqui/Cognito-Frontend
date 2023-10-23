@@ -48,6 +48,7 @@ export class CourseListComponent{
     this.courseService.getCourses(0, this.rows!).subscribe(
       (response) => {
         this.courses = response.response.content;
+        //this.courseRepo.setCourses(response.response);
 
       }
     )
@@ -71,7 +72,7 @@ export class CourseListComponent{
     });
 
   }
-  
+
 
   onPageChange(event: PaginatorState) {
     this.first = event.first!;
@@ -114,7 +115,7 @@ export class CourseListComponent{
     };
     this.courseRepo.setFilters(filters);
   }
-  
+
   onPageChange(event: PaginatorState) {
     this.setFilters(); // Actualiza el repositorio con los filtros actuales
     this.first = event.first!;
@@ -124,7 +125,7 @@ export class CourseListComponent{
         this.courses = response.response.content;
       });
   }
-  
+
   clearFilters() {
     this.selectedCategory = undefined;
     this.selectedLanguage = undefined;
@@ -133,7 +134,7 @@ export class CourseListComponent{
     this.courseRepo.setFilters({}); // Limpia los filtros en el repositorio
     this.onPageChange({page: 0, rows: this.rows});
   }
-  
+
 
 
 */
