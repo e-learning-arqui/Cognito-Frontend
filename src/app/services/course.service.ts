@@ -6,12 +6,14 @@ import {Paginator, ApiResponse} from "../model/paginator";
 import {Course} from "../model/Course";
 import {tap} from "rxjs";
 import {CourseDto} from "../model/dto/CourseDto";
+import {CourseEnv} from "../environments/course";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  private API_URL = 'http://localhost:7777/';
+  private API_URL = CourseEnv.COURSE_URL;
   private http: HttpClient = inject(HttpClient)
   private coursesRepo = inject(CourseRepository);
 
