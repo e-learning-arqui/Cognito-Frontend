@@ -1,34 +1,51 @@
 <div class="card mb-3 text-center">
   <div class="card-body">
-      <h1>Registro de usuario</h1>
+    <h1>Registro de usuario</h1>
   </div>
 </div>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 <div class="d-flex flex-column p-3 mx-auto" style="max-width: 500px;">
   <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="name">
-      <label for="name">Nombres</label>
+    <input type="text" class="form-control" id="name" formControlName="firstName">
+    <label for="name">Nombres</label>
   </div>
   <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="lastname">
-      <label for="lastname">Apellidos</label>
+    <input type="text" class="form-control" id="lastname" formControlName="lastName">
+    <label for="lastname">Apellidos</label>
   </div>
   <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="username">
-      <label for="username">Nombre de usuario</label>
+    <input type="text" class="form-control" id="username" formControlName="username">
+    <label for="username">Nombre de usuario</label>
   </div>
-  <label for="password" class="form-label mt-2">Password</label>
-  <div class="mb-3">
-      <p-password id="password" [toggleMask]="true" inputClass="form-control">
-          <ng-template pTemplate="footer">
-              <hr class="mt-2 mb-2">
-              <p class="mt-2">Suggestions</p>
-              <ul class="ps-3">
-                  <li>At least one lowercase</li>
-                  <li>At least one uppercase</li>
-                  <li>At least one numeric</li>
-                  <li>Minimum 8 characters</li>
-              </ul>
-          </ng-template>
+
+  <div class="d-flex mb-3 justify-content-between">
+    <!-- Campo de Password -->
+    <div class="me-2" style="flex: 1;">
+      <label for="password" class="form-label mt-2">Password</label>
+      <p-password id="password" [toggleMask]="true" inputClass="form-control" formControlName="password">
+        <ng-template pTemplate="footer">
+          <hr class="mt-2 mb-2">
+          <p class="mt-2">Tu contraseña debe tener:</p>
+          <ul class="ps-3">
+            <li>Al menos una letra minúscula</li>
+            <li>Al menos una letra mayúscula</li>
+            <li>Al menos un número y/o carácter especial</li>
+            <li>Longitud mínima de 8 carácteres</li>
+          </ul>
+        </ng-template>
       </p-password>
+    </div>
+
+    <!-- Campo de Confirmar Password -->
+    <div style="flex: 1;">
+      <label for="confirm-password" class="form-label mt-2">Confirma tu contraseña</label>
+      <p-password id="confirm-password" [toggleMask]="true" [feedback]="false" inputClass="form-control" formControlName="confirmPassword">
+        <ng-template pTemplate="footer"></ng-template>
+      </p-password>
+    </div>
   </div>
+  <p-button type="submit" label="Registrarse" ></p-button>
 </div>
+    <p-messages [(value)]="message!" [enableService]="false" [closable]="true"></p-messages>
+</form>
