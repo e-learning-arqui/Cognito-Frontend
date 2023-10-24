@@ -13,7 +13,7 @@ import {CourseEnv} from "../environments/course";
   providedIn: 'root'
 })
 export class CourseService {
-  private API_URL = CourseEnv.COURSE_URL;
+  private API_URL = 'http://localhost:7777/';
   private http: HttpClient = inject(HttpClient)
   private coursesRepo = inject(CourseRepository);
 

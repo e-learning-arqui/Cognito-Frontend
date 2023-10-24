@@ -1,50 +1,56 @@
-<div class="form-container">
-  <h2>Crear Curso</h2>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="text-center mb-4">Crear Curso</h2>
+      <form [formGroup]="formGroup" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+        
+        <!-- Primer grupo de campos -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Título del curso</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+        </div>
 
-  <form [formGroup]="formGroup" enctype="multipart/form-data" (ngSubmit)="onSubmit()" class="form-content">
-    <div class="form-row">
-      <div class="form-field">
-        <span class="input-label">
-          <input pInputText id="title" formControlName="title" />
-          <label>Título del curso</label>
-        </span>
-      </div>
+        <div class="mb-3">
+          <label for="selectedLanguage" class="form-label">Idioma</label>
+          <p-dropdown formControlName="selectedLanguage" [options]="languages" optionLabel="languageName"></p-dropdown>
+        </div>
+        
+        <div class="mb-3">
+            <label for="selectedLevel" class="form-label">Nivel</label>
+            <p-dropdown formControlName="selectedLevel" [options]="levels" optionLabel="levelName"></p-dropdown>
+        </div>
+        
 
-      <div class="form-field">
-        <p-dropdown formControlName="selectedLanguage" [options]="languages" optionLabel="languageName"></p-dropdown>
-      </div>
+        <!-- Segundo grupo de campos -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea class="form-control" rows="5" formControlName="description"></textarea>
+        </div>
 
-      <div class="form-field">
-        <p-dropdown formControlName="selectedLevel" [options]="levels" optionLabel="levelName"></p-dropdown>
-      </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Duración</label>
+          <p-inputNumber formControlName="duration" inputId="minutes" suffix=" min"></p-inputNumber>
+        </div>
+
+        <div class="mb-3">
+          <label for="selectedSubCategory" class="form-label">Categoría</label>
+          <p-dropdown [options]="groupedCategories" formControlName="selectedSubCategory" placeholder="Selecciona una categoría" [group]="true">
+            <ng-template let-group pTemplate="group">
+              <div class="group-label">
+                <span>{{ group.label }}</span>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <!-- Botones y notificaciones -->
+        <div class="d-flex justify-content-center">
+          <p-toast></p-toast>
+          <p-confirmPopup></p-confirmPopup>
+          <button type="button" pButton label="Crear Curso" [disabled]="!formGroup.valid" (click)="confirm($event)" class="btn btn-primary"></button>
+        </div>
+
+      </form>
     </div>
-
-    <div class="form-row">
-      <div class="form-field">
-        <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
-      </div>
-
-      <div class="form-field">
-        <p-inputNumber formControlName="duration" inputId="minutes" suffix=" min"> </p-inputNumber>
-      </div>
-
-      <div class="form-field">
-        <p-dropdown [options]="groupedCategories" formControlName="selectedSubCategory" placeholder="Selecciona una categoría" [group]="true">
-          <ng-template let-group pTemplate="group">
-            <div class="group-label">
-              <span>{{ group.label }}</span>
-            </div>
-          </ng-template>
-        </p-dropdown>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-field full-width">
-        <p-toast></p-toast>
-        <p-confirmPopup></p-confirmPopup>
-        <button type="button" pButton label="Crear Curso" [disabled]="!formGroup.valid" (click)="confirm($event)" class="submit-button"></button>
-      </div>
-    </div>
-  </form>
+  </div>
 </div>
