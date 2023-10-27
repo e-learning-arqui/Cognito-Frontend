@@ -104,38 +104,34 @@ export class CourseListComponent{
     });
   }
 
-/*
-
-  setFilters() {
-    const filters: CourseProps['filters'] = {
+  applyFilters() {
+    const filters = {
       title: this.searchTerm,
       languageId: this.selectedLanguage,
       levelId: this.selectedLevel,
       categoryId: this.selectedCategory
     };
-    this.courseRepo.setFilters(filters);
+  
+    this.courseService.getCourses(0, this.rows!, filters).subscribe((response) => {
+      this.courses = response.response.content;
+      
+      // Actualizar totalElements y resetear la paginación.
+      this.totalElements = response.response.totalElements;
+      if (this.totalElements === 0) {
+        this.first = 0;
+        this.courses = [];
+      }
+    });
   }
-
-  onPageChange(event: PaginatorState) {
-    this.setFilters(); // Actualiza el repositorio con los filtros actuales
-    this.first = event.first!;
-    this.rows = event.rows;
-    this.courseService.getCourses(event.page!, this.rows!)
-      .subscribe((response) => {
-        this.courses = response.response.content;
-      });
-  }
-
+  
   clearFilters() {
     this.selectedCategory = undefined;
     this.selectedLanguage = undefined;
     this.selectedLevel = undefined;
     this.searchTerm = '';
-    this.courseRepo.setFilters({}); // Limpia los filtros en el repositorio
-    this.onPageChange({page: 0, rows: this.rows});
+  
+    this.applyFilters(); 
   }
-
-
-
-*/
+  
+  
 }
