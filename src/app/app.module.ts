@@ -28,6 +28,7 @@ import { CourseEditComponent } from './components/courses/course-edit/course-edi
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
+import { SubscriptionComponent } from './components/shared/subscription/subscription.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -55,6 +56,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     CourseFormComponent,
     CourseEditComponent,
     UserRegisterComponent,
+    SubscriptionComponent,
 
   ],
   imports: [

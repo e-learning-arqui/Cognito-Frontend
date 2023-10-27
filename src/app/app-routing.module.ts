@@ -5,6 +5,7 @@ import {CourseListComponent} from "./components/courses/course-list/course-list.
 import {CourseFormComponent} from "./components/courses/course-form/course-form.component";
 import {CourseEditComponent} from "./components/courses/course-edit/course-edit.component";
 import {UserRegisterComponent} from "./components/user/user-register/user-register.component";
+import {SubscriptionComponent} from "./components/shared/subscription/subscription.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'courses/create', component: CourseFormComponent},
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
+  { path: 'subscription', component: SubscriptionComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
