@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-center">
+    <div class="card">
+        <div class="card-top">
+            <span class="credit-title">{{ formGroup.get('bankName')?.value }}</span>
+            <div class="card-icons">
+                <span class="yellow-icon"></span>
+                <span class="red-icon"></span>
+            </div>
+        </div>
+        <div class="card-content">
+            <img src="https://cdn-icons-png.flaticon.com/512/6404/6404078.png" alt="Card Icon" class="card-icon" /> 
+            <div class="card-info">
+                <div class="label">CARD NUMBER</div>
+                <h3>{{ formGroup.get('cardNumber')?.value }}</h3>
+            </div>
+        </div>
+        <div class="card-bottom">
+            <div class="card-holder">
+                <div class="label">CARD HOLDER</div>
+                {{ formGroup.get('cardName')?.value }}
+            </div>
+            <div class="card-expiration">
+                <div class="label">VALID TILL</div>
+                {{ formGroup.get('expirationDate')?.value }}
+            </div>
+        </div>
+        <div class="card-bottom">
+            <div class="card-holder">
+                <div class="label">CVV</div>
+                {{ formGroup.get('cvv')?.value }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-5 d-flex justify-content-center">
+    <form [formGroup]="formGroup">
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="bankNameInput">Bank Name</label>
+                    <input formControlName="bankName" type="text" class="form-control" id="bankNameInput" placeholder="Enter Bank Name">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="nameInput">Name</label>
+                    <input formControlName="cardName" type="text" class="form-control" id="nameInput" placeholder="Enter name" (input)="cardNameChange($event)">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="cardNumberInput">Card Number</label>
+                    <input formControlName="cardNumber" type="text" class="form-control" id="cardNumberInput" placeholder="Enter card number" maxlength="19" (input)="formatCardNumber($event)">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="expiryInput">Expiration (mm/yy)</label>
+                    <input formControlName="expirationDate" type="text" class="form-control" id="expiryInput" placeholder="MM/YY" maxlength="5" (input)="formatExpirationDate($event)">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input formControlName="cvv" type="text" class="form-control" id="cvv" placeholder="cvv" maxlength="3" (input)="formatCvv($event)">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <p-toast></p-toast>
+            <p-confirmPopup></p-confirmPopup>
+            <button type="button" pButton label="Agregar Tarjeta"  (click)="confirm($event)" class="btn btn-primary"></button>
+          </div>
+    </form>
+</div>

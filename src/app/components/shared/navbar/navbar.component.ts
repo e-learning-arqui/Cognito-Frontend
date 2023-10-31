@@ -37,6 +37,11 @@ export class NavbarComponent implements OnInit{
             icon: 'pi pi-fw pi-plus',
             routerLink: ['/courses/create']
           },
+          {
+            label: 'Agregar tarjeta',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: ['/courses/add-card']
+          }
         ]
       },
       //TODO agregar el icono de usuario y la lógica para que inicie sesión o editar perfil
@@ -44,7 +49,8 @@ export class NavbarComponent implements OnInit{
         , icon: 'pi pi-fw pi-user',  command: () => this.login()  },
       this.authProps.isLogged ?
         { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-user-minus',  command:() => this.logout()} :
-      { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: ['register']}
+      { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: ['register']
+      }
 
 
     ];

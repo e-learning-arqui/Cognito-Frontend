@@ -23,12 +23,14 @@ import {ToastModule} from "primeng/toast";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {CardModule} from "primeng/card";
+import { FormsModule } from '@angular/forms';
 import {FileUploadModule} from "primeng/fileupload";
 import { CourseEditComponent } from './components/courses/course-edit/course-edit.component';
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
 import { SubscriptionComponent } from './components/shared/subscription/subscription.component';
+import { AddCardComponent } from './components/payment/add-card/add-card.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -57,6 +59,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     CourseEditComponent,
     UserRegisterComponent,
     SubscriptionComponent,
+    AddCardComponent,
 
   ],
   imports: [
@@ -80,6 +83,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     FileUploadModule,
     PasswordModule,
     DividerModule,
+    BrowserModule,
+    FormsModule,
   ],
   providers: [
     {

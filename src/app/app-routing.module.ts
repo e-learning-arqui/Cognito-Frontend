@@ -6,6 +6,8 @@ import {CourseFormComponent} from "./components/courses/course-form/course-form.
 import {CourseEditComponent} from "./components/courses/course-edit/course-edit.component";
 import {UserRegisterComponent} from "./components/user/user-register/user-register.component";
 import {SubscriptionComponent} from "./components/shared/subscription/subscription.component";
+import { AddCardComponent } from './components/payment/add-card/add-card.component';
+
 
 const routes: Routes = [
   {
@@ -14,6 +16,7 @@ const routes: Routes = [
   },
   { path: 'courses', component: CourseListComponent},
   { path: 'courses/create', component: CourseFormComponent},
+  { path: 'courses/add-card', component: AddCardComponent},
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
   { path: 'subscription', component: SubscriptionComponent}
