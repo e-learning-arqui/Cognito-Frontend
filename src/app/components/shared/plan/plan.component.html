@@ -1,0 +1,23 @@
+<div class="container mt-5">
+    <div class="text-center">
+      <h1>Desbloquea la excelencia en e-learning con Premium</h1>
+      <p>Elige el plan que mejor se adapte a ti</p>
+    </div>
+  
+    <div class="row mt-4">
+      <div *ngFor="let subType of subscriptionTypeStore.subscriptionType$ | async" class="col">     
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">{{ subType.subscriptionType }}</h2> 
+            <p class="card-text">{{ subType.description }}</p> 
+            <ul>
+              <li>Precio: {{ subType.price | currency }}$</li> 
+              <li>Duración: {{ subType.duration }}</li> 
+            </ul>
+            <button class="btn btn-custom">Subscribirse</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

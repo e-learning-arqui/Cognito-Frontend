@@ -5,8 +5,8 @@ import {CourseListComponent} from "./components/courses/course-list/course-list.
 import {CourseFormComponent} from "./components/courses/course-form/course-form.component";
 import {CourseEditComponent} from "./components/courses/course-edit/course-edit.component";
 import {UserRegisterComponent} from "./components/user/user-register/user-register.component";
-import {SubscriptionComponent} from "./components/shared/subscription/subscription.component";
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
+import { PlanComponent } from './components/shared/plan/plan.component';
 
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'courses/add-card', component: AddCardComponent},
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
-  { path: 'subscription', component: SubscriptionComponent}
+  { path: 'plans', component: PlanComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
