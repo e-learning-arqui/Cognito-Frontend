@@ -14,7 +14,7 @@
               <li>Precio: {{ subType.price | currency }}$</li> 
               <li>Duración: {{ subType.duration }}</li> 
             </ul>
-            <button class="btn btn-custom">Subscribirse</button>
+            <button class="btn btn-custom" (click)="onSubscribe(subType)">Subscribirse</button>
           </div>
         </div>
       </div>

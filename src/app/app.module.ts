@@ -31,6 +31,7 @@ import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
+import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -60,6 +61,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     UserRegisterComponent,
     AddCardComponent,
     PlanComponent,
+    ViewPaymentComponent,
   ],
   imports: [
     BrowserModule,

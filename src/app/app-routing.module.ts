@@ -7,6 +7,7 @@ import {CourseEditComponent} from "./components/courses/course-edit/course-edit.
 import {UserRegisterComponent} from "./components/user/user-register/user-register.component";
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
+import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'courses/add-card', component: AddCardComponent},
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
-  { path: 'plans', component: PlanComponent}
+  { path: 'plans', component: PlanComponent},
+  {path: 'subscription/create',component: ViewPaymentComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

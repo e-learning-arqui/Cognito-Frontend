@@ -1,0 +1,55 @@
+.container {
+    text-align: center;
+}
+
+.selected-plan {
+    margin-bottom: 30px;
+}
+
+.selected-plan h2 {
+    color: #4A90E2;
+}
+
+.selected-plan ul {
+    list-style: none;
+    padding: 0;
+}
+
+.selected-plan ul li {
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.col {
+    max-width: 300px;
+    margin: 0 10px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card-body {
+    background-color: #F7F9FC;
+    padding: 20px;
+}
+
+.card-title {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    margin-bottom: 5px;
+}
+
+/* Optional: Add styles for your button if it's going to be used */
+.btn-primary {
+    margin-top: 30px;
+}

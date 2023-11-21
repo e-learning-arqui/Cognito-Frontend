@@ -1,0 +1,33 @@
+<div class="container">
+    
+    <!-- Información del plan seleccionado -->
+    <div *ngIf="selectedPlan" class="selected-plan">
+        <h2>Plan Seleccionado: {{ selectedPlan.subscriptionType }}</h2>
+        <p>{{ selectedPlan.description }}</p>
+        <ul>
+            <li>Precio: {{ selectedPlan.price | currency }}</li>
+            <li>Duración: {{ selectedPlan.duration }}</li>
+        </ul>
+    </div>
+
+    <div *ngIf="!selectedPlan">
+        <p>No se ha seleccionado ningún plan.</p>
+    </div>
+
+    <!-- Tarjetas de débito del usuario -->
+    <div class="row">
+        <div *ngFor="let card of userCards" class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ card.bankName }}</h5>
+                    <p class="card-text">Número: {{ card.number }}</p>
+                    <p class="card-text">Expiración: {{ card.expiration | date }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para realizar el pago (opcional) -->
+    <!-- <button class="btn btn-primary" (click)="handlePayment()">Realizar Pago</button> -->
+</div>
+

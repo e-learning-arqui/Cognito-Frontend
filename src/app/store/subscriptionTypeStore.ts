@@ -11,11 +11,10 @@ import {
   upsertEntities,
   withEntities,
 } from '@ngneat/elf-entities';
-import { switchMap } from 'rxjs/operators';
 
 import { SubscriptionTypeDto } from '../model/dto/SubscriptionTypeDto';
 const store = createStore(
-    { name: 'facts' },
+    { name: 'subscriptionType' },
     withEntities<SubscriptionTypeDto>()
 );
 
