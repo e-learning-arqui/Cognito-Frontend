@@ -5,16 +5,24 @@ import {CourseListComponent} from "./components/courses/course-list/course-list.
 import {CourseFormComponent} from "./components/courses/course-form/course-form.component";
 import {CourseEditComponent} from "./components/courses/course-edit/course-edit.component";
 import {UserRegisterComponent} from "./components/user/user-register/user-register.component";
+import {ForbiddenComponent} from "./components/shared/forbidden/forbidden.component";
+import {AuthGuard} from "./guards/authGuard";
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
   },
-  { path: 'courses', component: CourseListComponent},
+  { path: 'courses', component: CourseListComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['CREATE-COURSES']}
+  },
+
   { path: 'courses/create', component: CourseFormComponent},
+
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
+  { path: 'forbidden', component: ForbiddenComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
