@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   { path: 'courses', component: CourseListComponent},
   { path: 'courses/create', component: CourseFormComponent},
-  { path: 'courses/add-card', component: AddCardComponent},
+  { path: 'add-card', component: AddCardComponent},
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
   { path: 'plans', component: PlanComponent},

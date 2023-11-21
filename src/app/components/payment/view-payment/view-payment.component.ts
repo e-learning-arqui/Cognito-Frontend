@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Card } from 'src/app/model/Card';
+import { SubscriptionSend } from 'src/app/model/SubscriptionSend';
 import { SubscriptionTypeDto } from 'src/app/model/dto/SubscriptionTypeDto';
 import { PaymentService } from 'src/app/services/payment.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
@@ -15,13 +17,17 @@ import { CardStore } from 'src/app/store/cardStore';
 })
 export class ViewPaymentComponent implements OnInit {
   selectedPlan: SubscriptionTypeDto | null = null;
+  selectedCardId: number | null = null;
+
   userCards: Card[] = [];
   keycloakService: KeycloakService = inject(KeycloakService);
 
   constructor(
     private sharedDataService: SharedDataService,
     private paymentService: PaymentService,
-    public cardStore: CardStore
+    public cardStore: CardStore,
+    private router: Router,
+
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +44,30 @@ export class ViewPaymentComponent implements OnInit {
       this.selectedPlan = JSON.parse(planData);
     }
   }
+  handleSubscription() {
+    if (this.selectedPlan && this.selectedCardId !== null) {
+      const subscriptionSend: SubscriptionSend = {
+        cardId: this.selectedCardId,
+        subscriptionTypeId: this.selectedPlan.id
+      };
+  
+      this.paymentService.addSubscription(subscriptionSend).subscribe({
+        next: (response) => {
+          console.log('Suscripción realizada con éxito', response);
+        },
+        error: (error) => {
+          console.error('Error al realizar la suscripción', error);
+        }
+      });
+    } else {
+      console.warn('Selecciona un plan y una tarjeta para continuar');
+    }
+  }
+
+  navigateToAddCard() {
+    this.router.navigate(['/add-card']);
+  }
+  
 
 }
 

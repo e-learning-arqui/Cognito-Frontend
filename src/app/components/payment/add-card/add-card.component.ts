@@ -75,7 +75,7 @@ export class AddCardComponent {
         this.paymentService.addCard(this.toCardDto(this.formGroup)).subscribe((response) => {
           if(response.code == '0000'){
             this.messageService.add({severity:'success', summary:'Confirmado', detail:'Tarjeta agregada exitosamente!'});
-          this.router.navigate([`/courses`]).then(r => console.log(r))
+          this.router.navigate([`/subscription/create`]).then(r => console.log(r))
           }else if(response.code == '0001'){
             this.messageService.add({severity:'error', summary:'Error', detail:'La tarjeta ya existe!'});
 
