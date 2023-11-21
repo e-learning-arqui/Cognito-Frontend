@@ -1,0 +1,78 @@
+.card {
+    width: 400px;
+    height: 250px;
+    background-color: #e6f7ff;
+    border-radius: 15px;
+    padding: 15px 20px;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .credit-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .card-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .yellow-icon, .red-icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+  
+  .yellow-icon {
+    background-color: #FFC107;
+  }
+  
+  .red-icon {
+    background-color: #FF3B30;
+  }
+  
+  .card-icon {
+    width: 50px;
+    margin-right: 20px;
+  }
+  
+  .card-content {
+    display: flex;
+  }
+  
+  .card-info {
+    flex: 1;
+  }
+  
+  .label {
+    color: #888;
+    font-size: 12px;
+  }
+  
+  h3 {
+    font-size: 20px;
+    margin: 5px 0;
+    font-weight: normal;
+  }
+  
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .card-holder, .card-expiration {
+    font-size: 14px;
+  }
+  

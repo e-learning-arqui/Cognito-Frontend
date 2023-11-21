@@ -6,6 +6,8 @@ import {Paginator, ApiResponse} from "../model/paginator";
 import {Course} from "../model/Course";
 import {tap} from "rxjs";
 import {CourseDto} from "../model/dto/CourseDto";
+import {CourseEnv} from "../environments/course";
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,15 +39,20 @@ export class CourseService {
   }*/
   
   
-  getCourses(page: number, size: number) {
-    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?page=${page}&size=${size}`)
+  getCourses(page: number, size: number, filters: any = {}) {
+    let params = `page=${page}&size=${size}`;
+    
+    if(filters.title) params += `&title=${filters.title}`;
+    if(filters.languageId) params += `&languageId=${filters.languageId}`;
+    if(filters.levelId) params += `&levelId=${filters.levelId}`;
+    if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
+  
+    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?${params}`)
       .pipe(
         tap((response) => {
           this.coursesRepo.setCourses(response.response);
-          console.log(response.response, " response back from server");
         })
       )
-
   }
   getCourses2(page: number, size: number) {
 

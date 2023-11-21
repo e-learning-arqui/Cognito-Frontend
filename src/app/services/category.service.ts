@@ -3,13 +3,13 @@ import {HttpClient} from "@angular/common/http";
 import {ApiResponse} from "../model/api-response";
 import {CategoryDto} from "../model/dto/CategoryDto";
 import {SubCategoryDto} from "../model/dto/SubCategoryDto";
-
+import {CourseEnv} from "../environments/course";
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  API_URL = 'http://localhost:7777/api/v1/category';
+  API_URL = `${CourseEnv.COURSE_URL}/api/v1/category`;
   http: HttpClient = inject(HttpClient)
   constructor() { }
 

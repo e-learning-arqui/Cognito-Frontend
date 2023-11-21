@@ -1,0 +1,44 @@
+<div class="container">
+    <!-- Información del plan seleccionado -->
+    <div *ngIf="selectedPlan" class="selected-plan">
+        <h2>Plan Seleccionado: {{ selectedPlan.subscriptionType }}</h2>
+        <p>{{ selectedPlan.description }}</p>
+        <ul>
+            <li>Precio: {{ selectedPlan.price | currency }}</li>
+            <li>Duración: {{ selectedPlan.duration }}</li>
+        </ul>
+    </div>
+
+    <div *ngIf="!selectedPlan">
+        <p>No se ha seleccionado ningún plan.</p>
+    </div>
+
+    <!-- Tarjetas de débito del usuario -->
+    <div class="row mt-4">
+        <div *ngFor="let card of userCards; let i = index" class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ card.bankName }}</h5>
+                    <p class="card-text">Número: {{ card.number }}</p>
+                    <p class="card-text">Expiración: {{ card.expiration | date }}</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="selectedCard" id="card{{i}}" 
+                               [value]="card.id" [(ngModel)]="selectedCardId">
+                        <label class="form-check-label" for="card{{i}}">
+                            Usar esta tarjeta
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para realizar el pago y suscribirse -->
+    <button class="btn btn-primary mt-3" (click)="handleSubscription()" 
+            [disabled]="!selectedPlan || !selectedCardId">
+        Suscribirse
+    </button>
+
+    <button class="btn btn-secondary mt-3" (click)="navigateToAddCard()">Añadir Tarjeta</button>
+
+</div>

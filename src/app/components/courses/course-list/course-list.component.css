@@ -1,0 +1,22 @@
+/* Estilo personalizado para botones Bootstrap */
+.btn-custom {
+    background-color: #26FEA2;
+    border-color: #26FEA2;
+    color: #333333; /* Color del texto plomo oscuro */
+}
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    background-color: #21d58e; /* Un tono más oscuro para el hover y active */
+    border-color: #21d58e;
+    color: #222222; /* Un tono aún más oscuro para el texto durante el hover y active */
+}
+
+/* Si deseas cambiar también el color del botón cuando está desactivado: */
+.btn-custom:disabled,
+.btn-custom[disabled] {
+    background-color: #b2fecd; /* Un tono más claro para el estado desactivado */
+    border-color: #b2fecd;
+    color: #777777; /* Un tono plomo más claro para el texto cuando el botón está desactivado */
+}

@@ -2,26 +2,28 @@
 
   <div class="row justify-content-center mb-3">
     <div class="col-md-6">
-      <input type="text" class="form-control" placeholder="Buscar...">
+      <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar..." (input)="applyFilters()">
     </div>
   </div>
 
   <div class="row justify-content-center mb-3">
     <div class="col-md-2">
       <label>Categoría</label>
-      <p-dropdown [options]="categories" placeholder="Selecciona categoría" optionLabel="categoryName"></p-dropdown>
+      <p-dropdown [(ngModel)]="selectedCategory" [options]="categories" placeholder="Selecciona categoría" optionLabel="categoryName" optionValue="categoryId" (onChange)="applyFilters()"></p-dropdown>
+
     </div>
     <div class="col-md-2">
       <label>Idioma</label>
-      <p-dropdown [options]="languages" placeholder="Selecciona idioma" optionLabel="languageName"></p-dropdown>
+      <p-dropdown [(ngModel)]="selectedLanguage" [options]="languages" placeholder="Selecciona idioma" optionLabel="languageName" optionValue="languageId" (onChange)="applyFilters()"></p-dropdown>
+
     </div>
     <div class="col-md-2">
       <label>Nivel</label>
+      <p-dropdown [(ngModel)]="selectedLevel" [options]="levels" placeholder="Selecciona nivel" optionLabel="levelName" optionValue="levelId" (onChange)="applyFilters()"></p-dropdown>
 
-      <p-dropdown [options]="levels" placeholder="Selecciona nivel" optionLabel="levelName"></p-dropdown>
     </div>
     <div class="col-md-2">
-      <button pButton type="button" label="Limpiar filtro" class="btn btn-secondary"></button>
+      <button pButton type="button" label="Limpiar filtro" class="btn btn-secondary" (click)="clearFilters()"></button>
     </div>
   </div>
 
@@ -35,7 +37,7 @@
           <p class="card-text">{{ course.description }}</p>
         </div>
         <div class="card-footer d-flex justify-content-center">
-          <button pButton type="button" label="Comenzar" icon="pi pi-check" class="btn btn-primary"></button>
+          <button pButton type="button" label="Comenzar" icon="pi pi-check" class="btn btn-custom"></button>
         </div>
       </div>
     </div>
