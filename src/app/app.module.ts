@@ -33,6 +33,7 @@ import { ForbiddenComponent } from './components/shared/forbidden/forbidden.comp
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
 import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
+import { UserSubscriptionComponent } from './components/payment/user-subscription/user-subscription.component';
 import { SectionFormComponent } from './components/courses/section-form/section-form.component';
 import {TreeTableModule} from "primeng/treetable";
 import {DialogModule} from "primeng/dialog";
@@ -70,6 +71,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AddCardComponent,
     PlanComponent,
     ViewPaymentComponent,
+    UserSubscriptionComponent,
     SectionFormComponent,
     AddClassComponent,
   ],
