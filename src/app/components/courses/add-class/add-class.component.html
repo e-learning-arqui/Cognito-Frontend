@@ -1,0 +1,15 @@
+<form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="titulo">Título de la Clase</label>
+      <input id="titulo" type="text" pInputText formControlName="title" />
+    </div>
+    <div class="p-field">
+      <label for="descripcion">Descripción de la Clase</label>
+      <textarea id="descripcion" type="text" pInputTextarea formControlName="description" rows="5"></textarea>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton type="submit" label="Guardar" icon="pi pi-check"></button>
+  </p-footer>
+</form>

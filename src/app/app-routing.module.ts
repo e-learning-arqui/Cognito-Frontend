@@ -11,6 +11,7 @@ import { AddCardComponent } from './components/payment/add-card/add-card.compone
 import { PlanComponent } from './components/shared/plan/plan.component';
 import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
 import {SectionFormComponent} from "./components/courses/section-form/section-form.component";
+import {AddClassComponent} from "./components/courses/add-class/add-class.component";
 
 const routes: Routes = [
   {
@@ -30,7 +31,11 @@ const routes: Routes = [
   { path: 'add-card', component: AddCardComponent},
   { path: 'plans', component: PlanComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
-  {path: 'courses/:id/sections',component: SectionFormComponent},
+  {path: 'courses/:id/sections',component: SectionFormComponent,
+  children:[
+    {path: 'add-class',component: AddClassComponent},
+
+  ]},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
