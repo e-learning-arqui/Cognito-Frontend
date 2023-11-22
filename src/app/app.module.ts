@@ -32,6 +32,7 @@ import {DividerModule} from "primeng/divider";
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
 import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
+import { UserSubscriptionComponent } from './components/payment/user-subscription/user-subscription.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -62,6 +63,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AddCardComponent,
     PlanComponent,
     ViewPaymentComponent,
+    UserSubscriptionComponent,
   ],
   imports: [
     BrowserModule,

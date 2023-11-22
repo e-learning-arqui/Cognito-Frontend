@@ -30,6 +30,8 @@ export class NavbarComponent implements OnInit{
     });
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
+      { label: 'Planes', icon: 'pi pi-fw pi-book', routerLink: ['/plans'] },
+
       { label: 'Cursos', icon: 'pi pi-fw pi-calendar', routerLink: ['/courses'],
         items: [
           {
@@ -38,15 +40,16 @@ export class NavbarComponent implements OnInit{
             routerLink: ['/courses/create']
           },
           {
-            label: 'Agregar tarjeta',
-            icon: 'pi pi-fw pi-plus',
-            routerLink: ['/courses/add-card']
-          }
+            label: 'Editar Perfil',
+            icon: 'pi pi-fw pi-card',
+            routerLink: ['/user-subscriptions']
+          },
         ]
       },
       //TODO agregar el icono de usuario y la lógica para que inicie sesión o editar perfil
       { label: this.authProps.isLogged ? `${this.authProps.username}` : `Iniciar Sesión`
-        , icon: 'pi pi-fw pi-user',  command: () => this.login()  },
+        , icon: 'pi pi-fw pi-user',  command: () => this.login()
+      },
       this.authProps.isLogged ?
         { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-user-minus',  command:() => this.logout()} :
       { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: ['register']

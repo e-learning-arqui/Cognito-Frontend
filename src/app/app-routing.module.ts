@@ -8,6 +8,7 @@ import {UserRegisterComponent} from "./components/user/user-register/user-regist
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
 import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
+import { UserSubscriptionComponent } from './components/payment/user-subscription/user-subscription.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'courses/:id/edit', component: CourseEditComponent},
   { path: 'register' ,component: UserRegisterComponent},
   { path: 'plans', component: PlanComponent},
+  { path: 'user-subscriptions', component: UserSubscriptionComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
 ];
 @NgModule({
