@@ -7,6 +7,7 @@ import {Course} from "../model/Course";
 import {tap} from "rxjs";
 import {CourseDto} from "../model/dto/CourseDto";
 import {CourseEnv} from "../environments/course";
+import {SectionDto} from "../model/dto/SectionDto";
 
 
 @Injectable({
@@ -24,12 +25,12 @@ export class CourseService {
   getCourses(page: number, size: number) {
     const filters = this.coursesRepo.getFilters();
     let params = `page=${page}&size=${size}`;
-    
+
     if(filters.title) params += `&title=${filters.title}`;
     if(filters.languageId) params += `&languageId=${filters.languageId}`;
     if(filters.levelId) params += `&levelId=${filters.levelId}`;
     if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
-  
+
     return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?${params}`)
       .pipe(
         tap((response) => {
@@ -37,16 +38,16 @@ export class CourseService {
         })
       )
   }*/
-  
-  
+
+
   getCourses(page: number, size: number, filters: any = {}) {
     let params = `page=${page}&size=${size}`;
-    
+
     if(filters.title) params += `&title=${filters.title}`;
     if(filters.languageId) params += `&languageId=${filters.languageId}`;
     if(filters.levelId) params += `&levelId=${filters.levelId}`;
     if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
-  
+
     return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?${params}`)
       .pipe(
         tap((response) => {
@@ -76,6 +77,7 @@ export class CourseService {
     const formDataRequest = new FormData();
     const headersR = new HttpHeaders();
     headersR.append('Content-Type', 'multipart/form-data');
+    headersR.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     formDataRequest.append('file', file);
     formDataRequest.append('courseName', courseName);
     formDataRequest.append('bucketName', 'cognito-hub');
@@ -89,6 +91,39 @@ export class CourseService {
         console.log(response.response);
       }
     ));
+  }
+
+  findAllSections() {
+    return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/sections`)
+  }
+
+  saveSection(section: SectionDto, courseId: number) {
+    return this.http.post<ApiResponse<SectionDto>>(`${this.API_URL}api/v1/courses/${courseId}/sections`, section).subscribe(
+      data => {
+        console.log(data);
+      }
+    )
+  }
+
+  deleteSection(sectionId: number) {
+    // @ts-ignore
+    return this.http.put<ApiResponse<String>>(`${this.API_URL}api/v1/sections/${sectionId}/status`).subscribe(
+      data => {
+        console.log(data);
+      }
+    )
+  }
+
+  uploadClassVideo(file: File, classId: number) {
+    const formDataRequest = new FormData();
+    const headersR = new HttpHeaders();
+    headersR.append('Content-Type', 'multipart/form-data');
+    headersR.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    formDataRequest.append('file', file);
+    formDataRequest.append('classId', classId.toString());
+    formDataRequest.append('bucketName', 'cognito-hub');
+    // @ts-ignore
+    return this.http.post<ApiResponse<String>>('http://localhost:8001/api/v1/files', formDataRequest, { headersR });
   }
 
 }

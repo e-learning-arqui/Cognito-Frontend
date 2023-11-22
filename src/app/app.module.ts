@@ -29,10 +29,14 @@ import { CourseEditComponent } from './components/courses/course-edit/course-edi
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
+import { ForbiddenComponent } from './components/shared/forbidden/forbidden.component';
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
 import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
 import { UserSubscriptionComponent } from './components/payment/user-subscription/user-subscription.component';
+import { SectionFormComponent } from './components/courses/section-form/section-form.component';
+import {TreeTableModule} from "primeng/treetable";
+import {DialogModule} from "primeng/dialog";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -51,6 +55,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     });
 }
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,35 +65,38 @@ function initializeKeycloak(keycloak: KeycloakService) {
     CourseFormComponent,
     CourseEditComponent,
     UserRegisterComponent,
+    ForbiddenComponent,
     AddCardComponent,
     PlanComponent,
     ViewPaymentComponent,
     UserSubscriptionComponent,
+    SectionFormComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonModule,
-    TabMenuModule,
-    MenubarModule,
-    KeycloakAngularModule,
-    DataViewModule,
-    RouterModule,
-    HttpClientModule,
-    PaginatorModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    InputTextareaModule,
-    ToastModule,
-    ConfirmPopupModule,
-    CardModule,
-    FileUploadModule,
-    PasswordModule,
-    DividerModule,
-    BrowserModule,
-    FormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonModule,
+        TabMenuModule,
+        MenubarModule,
+        KeycloakAngularModule,
+        DataViewModule,
+        RouterModule,
+        HttpClientModule,
+        PaginatorModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        InputTextareaModule,
+        ToastModule,
+        ConfirmPopupModule,
+        CardModule,
+        FileUploadModule,
+        PasswordModule,
+        DividerModule,
+        FormsModule,
+        TreeTableModule,
+        DialogModule,
+    ],
   providers: [
     {
       provide: APP_INITIALIZER,

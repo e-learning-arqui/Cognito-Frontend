@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {CourseService} from "../../../services/course.service";
 import {ActivatedRoute} from "@angular/router";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-course-edit',
@@ -18,9 +19,7 @@ export class CourseEditComponent {
     let id = -1;
 
     this.route.params.subscribe(params => {
-
       id = params['id'];
-
     });
     this.courseService.getCourseById(id).subscribe((response) => {
       this.courseName = response.response.title;

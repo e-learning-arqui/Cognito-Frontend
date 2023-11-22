@@ -1,0 +1,79 @@
+<div class="card">
+  <p-treeTable [value]="sections" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template pTemplate="caption"> Secciones </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th style="width: 10rem">
+          <p-button icon="pi pi-cog"></p-button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <tr [ttRow]="rowNode">
+        <td *ngFor="let col of columns; let i = index">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+          {{ rowData[col.field] }}
+        </td>
+        <td>
+          <p-button icon="pi pi-video" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
+          <p-button icon="pi pi-pencil" styleClass="p-button-warning" [style]="{ 'margin-right': '.5em' }" > </p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-danger" (click)="deleteSection(rowData.sectionId)"></p-button>
+
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div style="text-align:left">
+        <p-button (click)="showNewSectionDialog()" icon="pi pi-refresh" label="Añadir"></p-button>
+      </div>
+    </ng-template>
+  </p-treeTable>
+</div>
+
+<p-dialog header="Header" [(visible)]="dialogVisible" [style]="{ width: '50vw' }">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">Añadir sección</span>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <form [formGroup]="newSectionForm">
+      <div class="p-field">
+        <label for="sectionName">Nombre de la sección</label>
+        <input type="text" id="sectionName" formControlName="title" class="p-inputtext">
+      </div>
+      <div class="p-field">
+        <label for="sectionDescription">Descripción</label>
+        <textarea id="sectionDescription" formControlName="description" rows="5" cols="50" class="p-inputtextarea"></textarea>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" label="Guardar" (click)="saveSection()" styleClass="p-button-primary"></p-button>
+    <p-button icon="pi pi-cancel" (click)="dialogVisible = false" label="Cancelar" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
+
+
+<p-dialog header="Header" [(visible)]="dialogVisible" [style]="{ width: '50vw' }">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">Añadir sección</span>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <form enctype="multipart/form-data" (ngSubmit)="onVideoUpload()">
+
+      <input type="file" name="file" (change)="onChanges($event)"/>
+      <p-button label="Upload" type="submit"></p-button>
+    </form>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" label="Guardar" (click)="saveSection()" styleClass="p-button-primary"></p-button>
+    <p-button icon="pi pi-cancel" (click)="dialogVisible = false" label="Cancelar" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+

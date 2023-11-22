@@ -35,7 +35,6 @@ export class UserRegisterComponent {
   }
 
   passwordPolicy(): boolean {
-
     //regex to check if password contains a number
     const passwordRegex = new RegExp("^(?=.*[0-9])");
 
