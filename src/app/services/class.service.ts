@@ -8,12 +8,17 @@ import {ApiResponse} from "../model/paginator";
 })
 export class ClassService {
   private sectionId! : number;
+  private classId! : number;
   private http: HttpClient = inject(HttpClient);
 
   constructor() { }
 
   saveClass(classDto: ClassDto, sectionId: number){
-    return this.http.post<ApiResponse<ClassDto>>(`http://localhost:7777/api/v1/courses/sections/${sectionId}`, classDto);
+    return this.http.post<ApiResponse<number>>(`http://localhost:7777/api/v1/courses/sections/${sectionId}/classes`, classDto);
+  }
+
+  findClassById(id: number){
+   return this.http.get<ApiResponse<ClassDto>>(`http://localhost:7777/api/v1/courses/classes/${id}`);
   }
 
   setSectionUrl(sectionId: number){
@@ -21,5 +26,12 @@ export class ClassService {
   }
   getSectionUrl(){
     return this.sectionId;
+  }
+
+  setClassId(classId: number){
+    this.classId = classId;
+  }
+  getClassId(){
+    return this.classId;
   }
 }

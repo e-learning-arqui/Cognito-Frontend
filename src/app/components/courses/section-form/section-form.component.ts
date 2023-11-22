@@ -4,7 +4,7 @@ import {UserDto} from "../../../model/dto/UserDto";
 import {LevelDto} from "../../../model/dto/LevelDto";
 import {CategoryDto} from "../../../model/dto/CategoryDto";
 import {CategoryService} from "../../../services/category.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../../services/course.service";
 import {SectionDto} from "../../../model/dto/SectionDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -29,51 +29,33 @@ export class SectionFormComponent {
   private courseService : CourseService = inject(CourseService);
   private formBuilder: FormBuilder = inject(FormBuilder);
   private classService: ClassService = inject(ClassService);
+  private router : Router = inject(Router);
   sections!: TreeNode<SectionDto>[];
   cols!: Column[];
-  items!: MenuItem[];
   subscription!: Subscription;
 
 
   private route: ActivatedRoute = inject(ActivatedRoute);
   newSectionForm!: FormGroup;
-  newClassForm!: FormGroup;
   dialogVisible: boolean = false;
-  videoDialog: boolean = false;
 
 
 
   file: File | undefined;
-  classTitle: string = '';
-  classDesc: string = '';
+
 
   constructor() {
     this.newSectionForm = this.formBuilder.group({
       title: [''],
       description: [''],
     });
-    this.newClassForm = this.formBuilder.group({
-      classTitle: [''],
-      classDesc: [''],
-      duration: [''],
-    });
+
     this.classService.setSectionUrl(this.route.snapshot.params['id']);
 
   }
 
   ngOnInit(){
-    this.items = [
-      {
-        label: 'Agregar Clase',
-        routerLink: 'add-class'
-      },
-      {
-        label: 'Añadir Video',
-        routerLink: 'video/:id'
-      },
 
-
-    ];
 
     let id = -1;
 
@@ -138,6 +120,14 @@ export class SectionFormComponent {
     this.courseService.uploadClassVideo(this.file!,1).subscribe((response) => {
       console.log(response);
     });
+  }
+
+  addVideo(sectionId: number){
+    const courseId = this.route.snapshot.params['id'];
+    this.classService.setSectionUrl(sectionId);
+
+    this.router.navigate([`courses/${courseId}/sections/${sectionId}/class-form`]);
+    console.log(sectionId);
   }
 
 }

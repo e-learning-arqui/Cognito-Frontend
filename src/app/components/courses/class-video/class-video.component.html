@@ -1,0 +1,18 @@
+<div class="card flex justify-content-center">
+  <p-toast></p-toast>
+  <p-fileUpload
+    url="http://localhost:8001/api/v1/files"
+    [customUpload]="true"
+    (uploadHandler)="onUpload($event)"
+    accept="video/*"
+    chooseLabel="Seleccionar Archivos"
+    uploadLabel="Subir"
+    cancelLabel="Cancelar">
+
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+</div>
