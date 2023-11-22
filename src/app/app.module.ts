@@ -33,6 +33,9 @@ import { ForbiddenComponent } from './components/shared/forbidden/forbidden.comp
 import { AddCardComponent } from './components/payment/add-card/add-card.component';
 import { PlanComponent } from './components/shared/plan/plan.component';
 import { ViewPaymentComponent } from './components/payment/view-payment/view-payment.component';
+import { SectionFormComponent } from './components/courses/section-form/section-form.component';
+import {TreeTableModule} from "primeng/treetable";
+import {DialogModule} from "primeng/dialog";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -65,30 +68,33 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AddCardComponent,
     PlanComponent,
     ViewPaymentComponent,
+    SectionFormComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonModule,
-    TabMenuModule,
-    MenubarModule,
-    KeycloakAngularModule,
-    DataViewModule,
-    RouterModule,
-    HttpClientModule,
-    PaginatorModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    InputTextareaModule,
-    ToastModule,
-    ConfirmPopupModule,
-    CardModule,
-    FileUploadModule,
-    PasswordModule,
-    DividerModule,
-    FormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonModule,
+        TabMenuModule,
+        MenubarModule,
+        KeycloakAngularModule,
+        DataViewModule,
+        RouterModule,
+        HttpClientModule,
+        PaginatorModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        InputTextareaModule,
+        ToastModule,
+        ConfirmPopupModule,
+        CardModule,
+        FileUploadModule,
+        PasswordModule,
+        DividerModule,
+        FormsModule,
+        TreeTableModule,
+        DialogModule,
+    ],
   providers: [
     {
       provide: APP_INITIALIZER,
