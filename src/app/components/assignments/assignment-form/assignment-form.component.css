@@ -1,0 +1,38 @@
+/* assignment-form.component.css */
+.card-title {
+    margin-bottom: 20px;
+  }
+  
+  .input-group-text {
+    width: 150px;
+  }
+  
+  .form-check-input {
+    margin-top: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .btn-toggle {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .form-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  

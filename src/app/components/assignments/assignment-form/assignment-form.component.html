@@ -1,0 +1,60 @@
+<form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+    <!-- Título del Assignment -->
+    <div class="form-group">
+      <label for="title">Título del Assignment</label>
+      <input type="text" class="form-control" id="title" formControlName="title">
+    </div>
+  
+    <!-- Tipo de Assignment -->
+      <div class="form-group">
+        <label for="assignmentType">Tipo de Assignment</label>
+        <p-dropdown [options]="assignmentTypes" optionLabel="description" (onChange)="onAssignmentTypeChange($event)"></p-dropdown>
+      </div>
+      
+      <div class="form-group">
+          <label for="section">Sección del curso</label>
+          <p-dropdown [options]="sections" optionLabel="title" (onChange)="onSectionChange($event)"></p-dropdown>
+      </div>
+    
+  
+    <div formArrayName="questions">
+      <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i">
+        <div class="card">
+          <div class="card-header">
+            <h5>Pregunta {{ i + 1 }}</h5>
+            <button type="button" class="btn btn-sm btn-toggle" (click)="toggleQuestion(i)">Minimizar</button>
+          </div>
+          <div class="card-body" *ngIf="isQuestionVisible(i)">
+            <div class="mb-3">
+              <label for="content{{i}}">Contenido de la Pregunta</label>
+              <input type="text" class="form-control" id="content{{i}}" formControlName="content">
+            </div>
+            <div class="mb-3">
+              <label for="score{{i}}">Puntuación</label>
+              <input type="number" class="form-control" id="score{{i}}" formControlName="score">
+            </div>
+  
+            <div formArrayName="options">
+              <div *ngFor="let option of getOptions(question).controls; let j=index" [formGroupName]="j">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Opción" formControlName="option">
+                  <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" formControlName="isCorrect" (change)="onCorrectOptionChanged(i, j)"> Correcta
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <button type="button" class="btn btn-outline-primary" (click)="addOption(i)">Añadir Opción</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Botones de acción -->
+    <div class="form-actions">
+      <button type="button" class="btn btn-outline-secondary" (click)="addQuestion()">Añadir Pregunta</button>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+  

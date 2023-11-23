@@ -37,6 +37,7 @@ import { UserSubscriptionComponent } from './components/payment/user-subscriptio
 import { SectionFormComponent } from './components/courses/section-form/section-form.component';
 import {TreeTableModule} from "primeng/treetable";
 import {DialogModule} from "primeng/dialog";
+import { AssignmentFormComponent } from './components/assignments/assignment-form/assignment-form.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -71,6 +72,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ViewPaymentComponent,
     UserSubscriptionComponent,
     SectionFormComponent,
+    AssignmentFormComponent,
   ],
     imports: [
         BrowserModule,

@@ -13,6 +13,7 @@ import { ViewPaymentComponent } from './components/payment/view-payment/view-pay
 import { UserSubscriptionComponent } from './components/payment/user-subscription/user-subscription.component';
 
 import {SectionFormComponent} from "./components/courses/section-form/section-form.component";
+import { AssignmentFormComponent } from './components/assignments/assignment-form/assignment-form.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'user-subscriptions', component: UserSubscriptionComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
   {path: 'courses/:id/sections',component: SectionFormComponent},
+  {path: 'courses/:id/assignment',component: AssignmentFormComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
