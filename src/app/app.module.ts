@@ -38,6 +38,10 @@ import { SectionFormComponent } from './components/courses/section-form/section-
 import {TreeTableModule} from "primeng/treetable";
 import {DialogModule} from "primeng/dialog";
 import { AssignmentFormComponent } from './components/assignments/assignment-form/assignment-form.component';
+import {StepsModule} from "primeng/steps";
+import { AddClassComponent } from './components/courses/add-class/add-class.component';
+import { ClassVideoComponent } from './components/courses/class-video/class-video.component';
+import { ClassFormComponent } from './components/courses/class-form/class-form.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -73,6 +77,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     UserSubscriptionComponent,
     SectionFormComponent,
     AssignmentFormComponent,
+    AddClassComponent,
+    ClassVideoComponent,
+    ClassFormComponent,
   ],
     imports: [
         BrowserModule,
@@ -98,6 +105,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         FormsModule,
         TreeTableModule,
         DialogModule,
+        StepsModule,
     ],
   providers: [
     {

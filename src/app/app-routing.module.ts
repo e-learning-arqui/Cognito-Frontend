@@ -14,6 +14,9 @@ import { UserSubscriptionComponent } from './components/payment/user-subscriptio
 
 import {SectionFormComponent} from "./components/courses/section-form/section-form.component";
 import { AssignmentFormComponent } from './components/assignments/assignment-form/assignment-form.component';
+import {AddClassComponent} from "./components/courses/add-class/add-class.component";
+import {ClassVideoComponent} from "./components/courses/class-video/class-video.component";
+import {ClassFormComponent} from "./components/courses/class-form/class-form.component";
 
 const routes: Routes = [
   {
@@ -35,7 +38,13 @@ const routes: Routes = [
   { path: 'user-subscriptions', component: UserSubscriptionComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
   {path: 'courses/:id/sections',component: SectionFormComponent},
-  {path: 'courses/:id/assignment',component: AssignmentFormComponent}
+  {path: 'courses/:id/assignment',component: AssignmentFormComponent},
+  {path: 'courses/:id/sections/:secId/class-form',component: ClassFormComponent,
+    children:[
+      {path: 'add-class',component: AddClassComponent},
+      {path: 'add-video',component: ClassVideoComponent}
+
+    ]},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
