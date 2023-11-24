@@ -18,6 +18,8 @@ import {AddClassComponent} from "./components/courses/add-class/add-class.compon
 import {ClassVideoComponent} from "./components/courses/class-video/class-video.component";
 import {ClassFormComponent} from "./components/courses/class-form/class-form.component";
 import { AssignmentListComponent } from './components/assignments/assignment-list/assignment-list.component';
+import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
+
 import {ClassListComponent} from "./components/courses/class-list/class-list.component";
 const routes: Routes = [
   {
@@ -39,8 +41,10 @@ const routes: Routes = [
   { path: 'user-subscriptions', component: UserSubscriptionComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
   {path: 'courses/:id/sections',component: SectionFormComponent},
+    
   {path: 'courses/:id/assignment/create',component: AssignmentFormComponent},
   {path: 'courses/:id/assignment', component: AssignmentListComponent},
+  {path: 'assignment/:id',component:AssignmentComponent},
 
   {path: 'courses/:id/sections/:secId/class-form',component: ClassFormComponent,
     children:[

@@ -48,7 +48,7 @@ export class AssignmentListComponent {
             this.assignmentService.updateVerification(assignmentId,this.keycloak.getKeycloakInstance().subject!).subscribe((response)=>{
               console.log("update verif works")
             });
-            //this.router.navigate([`/courses`]).then(r => console.log(r));
+            this.router.navigate([`/assignment/${assignmentId}`]).then(r => console.log(r));
           }else {
             this.messageService.add({severity:'error', summary:'Error', detail:'Usted ya realizó la prueba'});
 
