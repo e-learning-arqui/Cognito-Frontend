@@ -1,21 +1,17 @@
 <div class="container mt-4">
-
-
   <div class="row justify-content-center">
     <div class="col-md-4 mb-5" *ngFor="let file of files">
-      <div class="card">
-        <video width="80%" height="80%" controls>
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">{{ file.id }}</h5>
+          <p class="card-text">{{ file.name }}</p>
+        </div>
+        <video class="card-img-top mx-auto d-block" width="80%" height="80%" controls>
           <source src="{{file.url}}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <div class="card-body">
-          <h5 class="card-title">{{ file.id }}</h5>
-
-        </div>
-
       </div>
     </div>
   </div>
-
-
 </div>
+
