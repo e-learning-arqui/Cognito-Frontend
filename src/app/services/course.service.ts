@@ -8,6 +8,7 @@ import {tap} from "rxjs";
 import {CourseDto} from "../model/dto/CourseDto";
 import {CourseEnv} from "../environments/course";
 import {SectionDto} from "../model/dto/SectionDto";
+import {ClassDto} from "../model/dto/ClassDto";
 
 
 @Injectable({
@@ -21,24 +22,6 @@ export class CourseService {
   constructor() {
 
   }
-  /*
-  getCourses(page: number, size: number) {
-    const filters = this.coursesRepo.getFilters();
-    let params = `page=${page}&size=${size}`;
-
-    if(filters.title) params += `&title=${filters.title}`;
-    if(filters.languageId) params += `&languageId=${filters.languageId}`;
-    if(filters.levelId) params += `&levelId=${filters.levelId}`;
-    if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
-
-    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?${params}`)
-      .pipe(
-        tap((response) => {
-          this.coursesRepo.setCourses(response.response);
-        })
-      )
-  }*/
-
 
   getCourses(page: number, size: number, filters: any = {}) {
     let params = `page=${page}&size=${size}`;
@@ -93,8 +76,12 @@ export class CourseService {
     ));
   }
 
-  findAllSections() {
-    return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/sections`)
+  getSectionsByCourseId(courseId: number) {
+    return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/sections`)
+  }
+
+  findSectionsById(courseId: number) {
+    return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/sections`)
   }
 
   saveSection(section: SectionDto, courseId: number) {
@@ -124,6 +111,14 @@ export class CourseService {
     formDataRequest.append('bucketName', 'cognito-hub');
     // @ts-ignore
     return this.http.post<ApiResponse<String>>('http://localhost:8001/api/v1/files', formDataRequest, { headersR });
+  }
+
+  findClassesBySectionId(sectionId: number) {
+    return this.http.get<ApiResponse<ClassDto[]>>(`${this.API_URL}api/v1/courses/sections/${sectionId}/classes`)
+  }
+
+  findClassesByCourseId(courseId: number) {
+    return this.http.get<ApiResponse<ClassDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/classes/all`)
   }
 
 

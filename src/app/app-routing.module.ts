@@ -16,6 +16,7 @@ import {SectionFormComponent} from "./components/courses/section-form/section-fo
 import {AddClassComponent} from "./components/courses/add-class/add-class.component";
 import {ClassVideoComponent} from "./components/courses/class-video/class-video.component";
 import {ClassFormComponent} from "./components/courses/class-form/class-form.component";
+import {ClassListComponent} from "./components/courses/class-list/class-list.component";
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path: 'add-video',component: ClassVideoComponent}
 
     ]},
+  { path: 'courses/:id/sections/:secId/classes', component: ClassListComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
