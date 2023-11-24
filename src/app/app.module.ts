@@ -43,6 +43,7 @@ import { AddClassComponent } from './components/courses/add-class/add-class.comp
 import { ClassVideoComponent } from './components/courses/class-video/class-video.component';
 import { ClassFormComponent } from './components/courses/class-form/class-form.component';
 import { AssignmentListComponent } from './components/assignments/assignment-list/assignment-list.component';
+import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -82,6 +83,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ClassVideoComponent,
     ClassFormComponent,
     AssignmentListComponent,
+    AssignmentComponent,
   ],
     imports: [
         BrowserModule,
