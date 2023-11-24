@@ -31,3 +31,7 @@
     <p-confirmPopup></p-confirmPopup>
     <button type="button" pButton label="Enviar Respuestas"  (click)="confirm($event)" class="btn btn-primary" [disabled]="!allQuestionsAnswered()"></button>
 </div>
+<p-dialog header="Calificación" [(visible)]="displayScoreModal">
+    <div *ngIf="scoreDto">Calificación: {{ scoreDto.score }}/{{ scoreDto.maxScore }}</div>
+  </p-dialog>
+  

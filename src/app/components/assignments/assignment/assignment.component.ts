@@ -4,6 +4,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { QuestionDto } from 'src/app/model/dto/QuestionDto';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import {ConfirmationService, MessageService, SelectItemGroup} from "primeng/api";
+import { ScoreDto } from 'src/app/model/dto/ScoreDto';
 
 
 @Component({
@@ -14,6 +15,9 @@ import {ConfirmationService, MessageService, SelectItemGroup} from "primeng/api"
 export class AssignmentComponent implements OnInit {
   currentQuestionIndex: number = 0;
   questions: QuestionDto[] = [];
+  displayScoreModal: boolean = false;
+  scoreDto: ScoreDto | null = null;
+
 
   private route: ActivatedRoute = inject(ActivatedRoute);
   keycloak : KeycloakService = inject(KeycloakService);
@@ -81,11 +85,23 @@ export class AssignmentComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Respuestas enviadas con éxito', response);
+          this.getScore(assignmentId, keycloakId);
         },
         error: (error) => {
           console.error('Error al enviar respuestas', error);
         }
       });
+  }
+  getScore(assignmentId: number, keycloakId: string) {
+    this.assignmentService.getScore(assignmentId, keycloakId).subscribe({
+      next: (response) => {
+        this.scoreDto = response.response;
+        this.displayScoreModal = true;
+      },
+      error: (error) => {
+        console.error('Error al obtener la calificación', error);
+      }
+    });
   }
 
   confirm(event: Event){

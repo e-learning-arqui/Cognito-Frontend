@@ -10,6 +10,7 @@ import {CourseEnv} from "../environments/course";
 import { AssignmentDto } from '../model/dto/AssignmentDto';
 import { AssignmentStore } from '../store/assignmentStore';
 import { QuestionDto } from '../model/dto/QuestionDto';
+import { ScoreDto } from '../model/dto/ScoreDto';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,11 @@ export class AssignmentService {
 
   createStudentAssignment(assignmentData: any, assignmentId:number){
     return this.http.post(`${this.API_URL}/${assignmentId}`,assignmentData)
+  }
+
+
+  getScore(assignmentId: number, keycloakId: String){
+    return this.http.get<ApiResponse<ScoreDto>>(`${this.API_URL}/${assignmentId}/score/user/${keycloakId}`)
   }
 
 
