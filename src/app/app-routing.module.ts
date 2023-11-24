@@ -13,11 +13,12 @@ import { ViewPaymentComponent } from './components/payment/view-payment/view-pay
 import { UserSubscriptionComponent } from './components/payment/user-subscription/user-subscription.component';
 
 import {SectionFormComponent} from "./components/courses/section-form/section-form.component";
+import { AssignmentFormComponent } from './components/assignments/assignment-form/assignment-form.component';
 import {AddClassComponent} from "./components/courses/add-class/add-class.component";
 import {ClassVideoComponent} from "./components/courses/class-video/class-video.component";
 import {ClassFormComponent} from "./components/courses/class-form/class-form.component";
+import { AssignmentListComponent } from './components/assignments/assignment-list/assignment-list.component';
 import {ClassListComponent} from "./components/courses/class-list/class-list.component";
-
 const routes: Routes = [
   {
     path: 'home',
@@ -37,7 +38,10 @@ const routes: Routes = [
   { path: 'plans', component: PlanComponent},
   { path: 'user-subscriptions', component: UserSubscriptionComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
-  {path: 'courses/:id/sections',component: SectionFormComponent,},
+  {path: 'courses/:id/sections',component: SectionFormComponent},
+  {path: 'courses/:id/assignment/create',component: AssignmentFormComponent},
+  {path: 'courses/:id/assignment', component: AssignmentListComponent},
+
   {path: 'courses/:id/sections/:secId/class-form',component: ClassFormComponent,
     children:[
       {path: 'add-class',component: AddClassComponent},
