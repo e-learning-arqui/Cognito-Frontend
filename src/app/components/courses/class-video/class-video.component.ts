@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {ClassService} from "../../../services/class.service";
-import {ActivatedRoute} from "@angular/router";
-import {ClassDto} from "../../../model/dto/classDto";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ClassDto} from "../../../model/dto/ClassDto";
 import {FileUploadEvent, FileUploadHandlerEvent} from "primeng/fileupload";
 import {CourseService} from "../../../services/course.service";
 
@@ -22,6 +22,8 @@ export class ClassVideoComponent {
   private classService: ClassService = inject(ClassService);
   private courseService: CourseService = inject(CourseService);
   private activeRoute: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
+  courseId = this.activeRoute.snapshot.parent?.params['id'];
   classId!: number;
   classDto!: ClassDto;
   uploadedFiles: any[] = [];
@@ -47,10 +49,11 @@ export class ClassVideoComponent {
       this.uploadedFiles.push(file);
       this.courseService.uploadClassVideo(file, this.classId).subscribe(
         (response) => {
-          console.log(response);
         }
       )
     }
+    this.router.navigate([`/courses/${this.courseId}/sections`]);
+
 
   }
 

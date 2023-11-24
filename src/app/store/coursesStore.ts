@@ -38,7 +38,8 @@ const courseStore = createStore(
 );
 
 
-@Injectable({ providedIn: 'root' })export class CourseRepository {
+@Injectable({ providedIn: 'root' })
+export class CourseRepository {
   course$ = courseStore.pipe(selectAllEntities());
 
   getCourseProps(){
@@ -64,7 +65,7 @@ const courseStore = createStore(
   setFilters(filters: CourseProps['filters']) {
     courseStore.update(setProps({ filters }));
   }
-  
+
   getFilters() {
     return courseStore.query((state) => state.filters);
   }*/

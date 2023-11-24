@@ -20,6 +20,7 @@ import {ClassFormComponent} from "./components/courses/class-form/class-form.com
 import { AssignmentListComponent } from './components/assignments/assignment-list/assignment-list.component';
 import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 
+import {ClassListComponent} from "./components/courses/class-list/class-list.component";
 const routes: Routes = [
   {
     path: 'home',
@@ -51,6 +52,7 @@ const routes: Routes = [
       {path: 'add-video',component: ClassVideoComponent}
 
     ]},
+  { path: 'courses/:id/sections/:secId/classes', component: ClassListComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

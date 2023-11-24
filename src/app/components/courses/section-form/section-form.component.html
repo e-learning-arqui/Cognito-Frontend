@@ -13,13 +13,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
       <tr [ttRow]="rowNode">
-        <td *ngFor="let col of columns; let i = index">
-          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+        <td *ngFor="let col of columns; let i = index" >
           {{ rowData[col.field] }}
         </td>
         <td>
           <p-button icon="pi pi-video" styleClass="p-button-success" (click)="addVideo(rowData.sectionId)" [style]="{ 'margin-right': '.5em' }"></p-button>
-          <p-button icon="pi pi-pencil" styleClass="p-button-warning" [style]="{ 'margin-right': '.5em' }" > </p-button>
+          <p-button icon="pi pi-pencil" styleClass="p-button-warning" [style]="{ 'margin-right': '.5em' }"  (click)="goToclassList(rowData.sectionId)"> </p-button>
           <p-button icon="pi pi-trash" styleClass="p-button-danger" (click)="deleteSection(rowData.sectionId)"></p-button>
 
         </td>

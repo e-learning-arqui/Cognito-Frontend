@@ -42,6 +42,7 @@ import {StepsModule} from "primeng/steps";
 import { AddClassComponent } from './components/courses/add-class/add-class.component';
 import { ClassVideoComponent } from './components/courses/class-video/class-video.component';
 import { ClassFormComponent } from './components/courses/class-form/class-form.component';
+import { ClassListComponent } from './components/courses/class-list/class-list.component';
 import { AssignmentListComponent } from './components/assignments/assignment-list/assignment-list.component';
 import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 
@@ -82,6 +83,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AddClassComponent,
     ClassVideoComponent,
     ClassFormComponent,
+    ClassListComponent,
     AssignmentListComponent,
     AssignmentComponent,
   ],

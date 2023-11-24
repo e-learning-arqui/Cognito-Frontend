@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {MenuItem, TreeNode} from "primeng/api";
-import {UserDto} from "../../../model/dto/UserDto";
+import {ClassDto} from "../../../model/dto/ClassDto";
 import {LevelDto} from "../../../model/dto/LevelDto";
 import {CategoryDto} from "../../../model/dto/CategoryDto";
 import {CategoryService} from "../../../services/category.service";
@@ -30,7 +30,9 @@ export class SectionFormComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private classService: ClassService = inject(ClassService);
   private router : Router = inject(Router);
-  sections!: TreeNode<SectionDto>[];
+
+
+  sections!: TreeNode<any>[];
   cols!: Column[];
   subscription!: Subscription;
 
@@ -39,6 +41,7 @@ export class SectionFormComponent {
   newSectionForm!: FormGroup;
   dialogVisible: boolean = false;
 
+  classes: ClassDto[] = [];
 
 
   file: File | undefined;
@@ -52,24 +55,30 @@ export class SectionFormComponent {
 
     this.classService.setSectionUrl(this.route.snapshot.params['id']);
 
+    this.findClassesByCourseId(this.route.snapshot.params['id'])
   }
 
   ngOnInit(){
-
 
     let id = -1;
 
     this.route.params.subscribe(params => {
       id = params['id'];
     });
-    this.courseService.findAllSections().subscribe(
+    this.courseService.findSectionsById(id).subscribe(
       data => {
+        // @ts-ignore
         this.sections = data.response!.map((section: SectionDto) => {
-          console.log(section);
           return {
+            key: section.sectionId,
             label: section.title,
             data: section,
-            children: []
+            children:[
+
+              {key: `${section.sectionId}-1`, label: 'Hola', data: 'Hola', children: []},
+
+            ]
+
           };
         });
 
@@ -128,6 +137,19 @@ export class SectionFormComponent {
 
     this.router.navigate([`courses/${courseId}/sections/${sectionId}/class-form`]);
     console.log(sectionId);
+  }
+
+  findClassesByCourseId(courseId: number){
+    this.courseService.findClassesByCourseId(this.route.snapshot.params['id']).subscribe(
+      data => {
+        this.classes = data.response;
+      }
+    )
+  }
+
+  goToclassList(sectionId: number){
+    this.classService.setSectionUrl(sectionId);
+    this.router.navigate([`courses/${this.route.snapshot.params['id']}/sections/${sectionId}/classes`]);
   }
 
 }
