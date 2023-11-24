@@ -97,7 +97,7 @@
     }
 
     getSections(){
-      this.courseService.findAllSections().subscribe((response)=>{
+      this.courseService.findSectionsById(this.route.snapshot.params['id']).subscribe((response)=>{
         this.sections=response.response
       });
 
