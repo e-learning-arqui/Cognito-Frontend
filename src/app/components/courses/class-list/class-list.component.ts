@@ -31,4 +31,5 @@ export class ClassListComponent {
     )
   }
 
+  protected readonly console = console;
 }

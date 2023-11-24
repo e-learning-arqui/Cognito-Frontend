@@ -35,7 +35,7 @@ export class AssignmentFormComponent {
 
   ngOnInit(): void {
     let id;
-    this.getSections();
+    // this.getSections();
     this.getAssignmentType();
     this.route.params.subscribe(params => {
       id = params['id'];
@@ -65,11 +65,11 @@ export class AssignmentFormComponent {
     (this.questions.at(questionIndex).get('options') as FormArray).push(optionGroup);
   }
 
- 
+
   getOptions(question: AbstractControl): FormArray {
     return question.get('options') as FormArray;
   }
-  
+
   onCorrectOptionChanged(questionIndex: number, selectedOptionIndex: number) {
     const questionFormArray = this.getOptions(this.questions.at(questionIndex));
     questionFormArray.controls.forEach((optionControl, index) => {
@@ -85,7 +85,7 @@ export class AssignmentFormComponent {
   toggleQuestion(index: number): void {
     this.visibleQuestions[index] = !this.visibleQuestions[index];
   }
-  
+
   isQuestionVisible(index: number): boolean {
     return this.visibleQuestions[index] !== false;
   }
@@ -96,19 +96,19 @@ export class AssignmentFormComponent {
     });
   }
 
-  getSections(){
-    this.courseService.findAllSections().subscribe((response)=>{
-      this.sections=response.response
-    });
-
-
-  }
+  // getSections(){
+  //   this.courseService.findAllSections().subscribe((response)=>{
+  //     this.sections=response.response
+  //   });
+  //
+  //
+  // }
   onAssignmentTypeChange(event: { value: { id: any; }; }) {
     // Asumiendo que event.value es el objeto seleccionado
     const selectedId = event.value ? event.value.id : null;
     this.assignmentForm.get('assignmentTypeId')?.setValue(selectedId);
   }
-  
+
   onSectionChange(event: { value: { sectionId: any; }; }) {
     const selectedId = event.value ? event.value.sectionId : null;
     this.assignmentForm.get('sectionId')?.setValue(selectedId);
@@ -121,7 +121,7 @@ export class AssignmentFormComponent {
         .subscribe({
           next: (response: any) => {
             console.log('Assignment creado con éxito', response);
-            this.router.navigate(['/']); 
+            this.router.navigate(['/']);
 
 
           },
