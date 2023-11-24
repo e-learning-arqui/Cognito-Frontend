@@ -21,6 +21,7 @@ import { AssignmentListComponent } from './components/assignments/assignment-lis
 import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 
 import {ClassListComponent} from "./components/courses/class-list/class-list.component";
+import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'courses/create', component: CourseFormComponent},
 
   { path: 'courses/:id/edit', component: CourseEditComponent},
-  { path: 'register' ,component: UserRegisterComponent},
+  { path: 'register/professor' ,component: UserRegisterComponent},
+  {path: 'register/student', component: StudentRegisterComponent},
   { path: 'forbidden', component: ForbiddenComponent},
   { path: 'add-card', component: AddCardComponent},
   { path: 'plans', component: PlanComponent},

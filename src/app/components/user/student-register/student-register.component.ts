@@ -1,27 +1,26 @@
-import {Component, inject} from '@angular/core';
-import {Form, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {SubCategoryDto} from "../../../model/dto/SubCategoryDto";
-import {LanguageDto} from "../../../model/dto/LanguageDto";
-import {LevelDto} from "../../../model/dto/LevelDto";
+import { Component, inject } from '@angular/core';
 import {Message} from "primeng/api";
 import {UserDto} from "../../../model/dto/UserDto";
 import {UserService} from "../../../services/user.service";
+import {Form, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-user-register',
-  templateUrl: './user-register.component.html',
-  styleUrls: ['./user-register.component.css']
+  selector: 'app-student-register',
+  templateUrl: './student-register.component.html',
+  styleUrls: ['./student-register.component.css']
 })
-export class UserRegisterComponent {
+export class StudentRegisterComponent {
   message : Message[] | undefined;
   formGroup!: FormGroup;
   formBuilder: FormBuilder = inject(FormBuilder);
   isPasswordValid: boolean = false;
 
+
   userService: UserService = inject(UserService);
   constructor(
-    private router:Router
+     private router: Router
   ) {
   }
   ngOnInit(){
@@ -54,7 +53,7 @@ export class UserRegisterComponent {
     if(this.formGroup.get('password')?.value != this.formGroup.get('confirmPassword')?.value){
       this.displayMessage("Las contraseñas no coinciden", "error", "Error");
     }
-    this.userService.registerProfessor(this.toUserDto(this.formGroup)).subscribe(
+    this.userService.registerStudent(this.toUserDto(this.formGroup)).subscribe(
       (response: any) => {
         console.log(response);
         this.displayMessage("Usuario registrado correctamente", "success", "Éxito");
@@ -80,10 +79,12 @@ export class UserRegisterComponent {
     }
 
   }
+  redirectToProfessorRegistration(){
+    this.router.navigate(['register/professor']);
+  }
   goToMenu(){
     this.router.navigate(['courses']);
   }
 
 
 }
-

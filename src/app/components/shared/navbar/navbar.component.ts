@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit{
       },
       this.authProps.isLogged ?
         { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-user-minus',  command:() => this.logout()} :
-      { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: ['register']
+        { label: 'Registrarse', icon: 'pi pi-fw pi-user-plus',  routerLink: ['register/student']
       }
 
 

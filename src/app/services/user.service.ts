@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Environment} from "../environments/environment";
+import { userEnvironment } from '../environments/user';
 import {HttpClient} from "@angular/common/http";
 import {UserDto} from "../model/dto/UserDto";
 
@@ -7,12 +7,16 @@ import {UserDto} from "../model/dto/UserDto";
   providedIn: 'root'
 })
 export class UserService {
-  API_URL = Environment.API_URL;
+  API_URL = userEnvironment.API_URL;
 
   http: HttpClient = inject(HttpClient);
   constructor() { }
 
   registerProfessor(professor: UserDto){
-    return this.http.post(this.API_URL + 'users/api/v1/users/professors', professor);
+    return this.http.post(this.API_URL + 'api/v1/users/professors', professor);
+  }
+
+  registerStudent(student: UserDto){
+    return this.http.post(this.API_URL + 'api/v1/users/students', student);
   }
 }

@@ -1,0 +1,63 @@
+<div class="card mb-3 text-center">
+    <div class="card-body">
+      <h1>Registro de estudiante</h1>
+    </div>
+  </div>
+  
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="d-flex flex-column p-3 mx-auto" style="max-width: 500px;">
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="name" formControlName="firstName">
+      <label for="name">Nombres</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="lastname" formControlName="lastName">
+      <label for="lastname">Apellidos</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="email" formControlName="email">
+      <label for="email">Correo Electrónico</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="username" formControlName="username">
+      <label for="username">Nombre de usuario</label>
+    </div>
+  
+    <div class="d-flex mb-3 justify-content-between">
+      <!-- Campo de Password -->
+      <div class="me-2" style="flex: 1;">
+        <label for="password" class="form-label mt-2">Password</label>
+        <p-password id="password" [toggleMask]="true" inputClass="form-control" formControlName="password">
+          <ng-template pTemplate="footer">
+            <hr class="mt-2 mb-2">
+            <p class="mt-2">Tu contraseña debe tener:</p>
+            <ul class="ps-3">
+              <li>Al menos una letra minúscula</li>
+              <li>Al menos una letra mayúscula</li>
+              <li>Al menos un número y/o carácter especial</li>
+              <li>Longitud mínima de 8 carácteres</li>
+            </ul>
+          </ng-template>
+        </p-password>
+      </div>
+  
+      <!-- Campo de Confirmar Password -->
+      <div style="flex: 1;">
+        <label for="confirm-password" class="form-label mt-2">Confirma tu contraseña</label>
+        <p-password id="confirm-password" [toggleMask]="true" [feedback]="false" inputClass="form-control" formControlName="confirmPassword">
+          <ng-template pTemplate="footer"></ng-template>
+        </p-password>
+      </div>
+    </div>
+    <p-button type="submit" label="Registrarse" ></p-button>
+    <br>
+    <p-button type="button" label="Registrar como Profesor" (click)="redirectToProfessorRegistration()"></p-button>
+    <p-button type="button" label="Regresar al Menú" (click)="goToMenu()"></p-button>
+
+    <a></a>
+  </div>
+      <p-messages [(value)]="message!" [enableService]="false" [closable]="true"
+      [style]="{'width': '640px', 'padding': '24px', 'margin': '0 auto', 'margin-top': '24px'}"
+      ></p-messages>
+  </form>
+  
