@@ -22,6 +22,7 @@ import { AssignmentComponent } from './components/assignments/assignment/assignm
 
 import {ClassListComponent} from "./components/courses/class-list/class-list.component";
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
+import {TakenCoursesListComponent} from "./components/student/taken-courses-list/taken-courses-list.component";
 const routes: Routes = [
   {
     path: 'home',
@@ -55,6 +56,8 @@ const routes: Routes = [
 
     ]},
   { path: 'courses/:id/sections/:secId/classes', component: ClassListComponent},
+
+  {path: 'courses/student/:kcId', component: TakenCoursesListComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

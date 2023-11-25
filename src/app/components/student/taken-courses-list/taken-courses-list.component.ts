@@ -1,32 +1,24 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CourseProps, CourseRepository} from "../../../store/coursesStore";
-import {CourseService} from "../../../services/course.service";
-import {Course} from "../../../model/Course";
-import {first} from "rxjs";
-import { CategoryService } from 'src/app/services/category.service';
-import { LanguageService } from 'src/app/services/language.service';
-import { LevelService } from 'src/app/services/level.service';
-import { LanguageDto } from 'src/app/model/dto/LanguageDto';
-import { LevelDto } from 'src/app/model/dto/LevelDto';
-import { CategoryDto } from 'src/app/model/dto/CategoryDto';
+import {Component, inject} from '@angular/core';
+import {CategoryService} from "../../../services/category.service";
+import {LanguageService} from "../../../services/language.service";
+import {LevelService} from "../../../services/level.service";
 import {KeycloakService} from "keycloak-angular";
-import {Message, MessageService} from "primeng/api";
-interface PaginatorState{
-  first?: number;
-  rows?: number;
-  page?: number;
-  pageCount?: number;
+import {LanguageDto} from "../../../model/dto/LanguageDto";
+import {LevelDto} from "../../../model/dto/LevelDto";
+import {CategoryDto} from "../../../model/dto/CategoryDto";
+import {Course} from "../../../model/Course";
+import {CourseRepository} from "../../../store/coursesStore";
+import {CourseService} from "../../../services/course.service";
+import {MessageService} from "primeng/api";
+import {StudentCoursesRepository} from "../../../store/studentCoursesStore";
+import {PaginatorState} from "primeng/paginator";
 
-}
 @Component({
-  selector: 'app-course-list',
-  templateUrl: './course-list.component.html',
-  styleUrls: ['./course-list.component.css'],
-  providers: [MessageService]
+  selector: 'app-taken-courses-list',
+  templateUrl: './taken-courses-list.component.html',
+  styleUrls: ['./taken-courses-list.component.css']
 })
-
-
-export class CourseListComponent{
+export class TakenCoursesListComponent {
   selectedCategory?: number;
   selectedLanguage?: number;
   selectedLevel?: number;
@@ -35,20 +27,19 @@ export class CourseListComponent{
   languageService : LanguageService = inject(LanguageService);
   levelService : LevelService = inject(LevelService);
   keycloak: KeycloakService = inject(KeycloakService);
-  // private courseRepo: CourseRepository = inject(CourseRepository);
-  // private courseService: CourseService = inject(CourseService);
+  KEYCLOAK_ID = this.keycloak.getKeycloakInstance().subject;
 
   languages: LanguageDto[] | undefined;
   levels: LevelDto[] | undefined;
   categories: CategoryDto[] | undefined;
   first = 0;
-  course$ = this.courseRepo.course$;
+  course$ = this.studentRepo.studentCourses$;
   maxSize = 0;
   courses : Course[] = [];
   totalElements = 0;
   rows: number | undefined = 6;
-  constructor(private courseRepo: CourseRepository, private courseService: CourseService, private messageService: MessageService) {
-    this.courseService.getCourses( 0, this.rows!  ).subscribe(
+  constructor(private studentRepo: StudentCoursesRepository, private courseService: CourseService) {
+    this.courseService.getStudentCourses(this.KEYCLOAK_ID!,0, this.rows!).subscribe(
       (response) => {
         this.courses = response.response.content;
         //this.courseRepo.setCourses(response.response);
@@ -56,7 +47,7 @@ export class CourseListComponent{
       }
     )
     this.course$.subscribe((response) => {
-      const courseProps = this.courseRepo.getCourseProps();
+      const courseProps = this.studentRepo.getStudentCourseProps();
       this.maxSize = courseProps.totalPages;
       this.totalElements = courseProps.totalElements;
       //this.courses = response;
@@ -68,11 +59,11 @@ export class CourseListComponent{
     this.getLevels();
     //this.courseService.getCourses2(0, 5);
     this.course$.subscribe((response) => {
-      const courseProps = this.courseRepo.getCourseProps();
+      const courseProps = this.studentRepo.getStudentCourseProps();
       this.maxSize = courseProps.totalPages;
       this.totalElements = courseProps.totalElements;
       this.courses = response;
-      console.log(this.courses, " student courses");
+      console.log(response, " courses");
     });
 
   }
@@ -92,7 +83,7 @@ export class CourseListComponent{
 
   getCategories() {
     this.categoryService.getAllCategories().subscribe((response) => {
-     this.categories = response.response || [];
+      this.categories = response.response || [];
     });
   }
 
@@ -136,16 +127,4 @@ export class CourseListComponent{
 
     this.applyFilters();
   }
-
-  subToCourse(courseTitle: string) {
-    const keycloakId = this.keycloak.getKeycloakInstance().subject;
-    this.courseService.subToCourse(courseTitle, keycloakId!).subscribe((response) => {
-      if(response.code == '0000'){
-        this.messageService.add({ key: 'tc', severity:'success', summary: 'Success', detail: `Te has suscrito al curso ${courseTitle}!`});
-      }
-
-    });
-  }
-
-
 }

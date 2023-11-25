@@ -44,6 +44,12 @@ export class NavbarComponent implements OnInit{
             icon: 'pi pi-fw pi-card',
             routerLink: ['/user-subscriptions']
           },
+          {
+            label: 'Mis Cursos',
+            icon: 'pi pi-fw pi-calendar-plus',
+            routerLink: [this.authProps.isLogged ? `/courses/student/${this.authProps.kcId}` : this.login()]
+          }
+
         ]
       },
       //TODO agregar el icono de usuario y la lógica para que inicie sesión o editar perfil
@@ -71,6 +77,7 @@ export class NavbarComponent implements OnInit{
       token: this.keycloakService.getKeycloakInstance().token!,
       username: this.keycloakService.getKeycloakInstance().tokenParsed!['preferred_username']!,
       isLogged: true,
+      kcId: this.keycloakService.getKeycloakInstance().tokenParsed!['sub']!
     });
   }
 
