@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   { path: 'courses', component: CourseListComponent, canActivate: [AuthGuard],
     data: {
-      roles: ['CREATE-COURSES']}
+      roles: ['CREATE-COURSES', 'VIEW-COURSES']}
   },
 
   { path: 'courses/create', component: CourseFormComponent},
@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: 'user-subscriptions', component: UserSubscriptionComponent},
   {path: 'subscription/create',component: ViewPaymentComponent},
   {path: 'courses/:id/sections',component: SectionFormComponent},
-    
+
   {path: 'courses/:id/assignment/create',component: AssignmentFormComponent},
   {path: 'courses/:id/assignment', component: AssignmentListComponent},
   {path: 'assignment/:id',component:AssignmentComponent},
