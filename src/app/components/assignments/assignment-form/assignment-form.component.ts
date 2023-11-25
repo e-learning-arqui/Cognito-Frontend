@@ -20,6 +20,7 @@
     assignmentService: AssignmentService = inject(AssignmentService);
     courseService: CourseService = inject(CourseService);
     private route: ActivatedRoute = inject(ActivatedRoute);
+    /*
 
     constructor(private fb: FormBuilder, private router: Router) {
       this.assignmentForm = this.fb.group({
@@ -27,6 +28,15 @@
         description: [''],
         assignmentTypeId: [''],
         sectionId: [''],
+        questions: this.fb.array([])
+      });
+    }*/
+    constructor(private fb: FormBuilder,     private router: Router    ) {
+      this.assignmentForm = this.fb.group({
+        title: [''],
+        assignmentTypeId: [1],
+        sectionId: [1],
+        courseId: [+this.route.snapshot.params['id']],
         questions: this.fb.array([])
       });
     }
