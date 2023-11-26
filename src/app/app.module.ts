@@ -55,6 +55,8 @@ import {CarouselModule} from "primeng/carousel";
 import {TagModule} from "primeng/tag";
 import { StudentVideoComponent } from './components/student/student-video/student-video.component';
 import {SkeletonModule} from "primeng/skeleton";
+import { CreateStreamComponent } from './components/lives/create-stream/create-stream.component';
+import { ViewStreamComponent } from './components/lives/view-stream/view-stream.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -100,7 +102,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     TakenCoursesListComponent,
     StudentSectionsComponent,
     StudentClassesComponent,
-    StudentVideoComponent
+    StudentVideoComponent,
+    CreateStreamComponent,
+    ViewStreamComponent
   ],
     imports: [
         BrowserModule,

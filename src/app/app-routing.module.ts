@@ -26,6 +26,9 @@ import {TakenCoursesListComponent} from "./components/student/taken-courses-list
 import {StudentSectionsComponent} from "./components/student/student-sections/student-sections.component";
 import {StudentClassesComponent} from "./components/student/student-classes/student-classes.component";
 import {StudentVideoComponent} from "./components/student/student-video/student-video.component";
+
+import { CreateStreamComponent } from './components/lives/create-stream/create-stream.component';
+import { ViewStreamComponent } from './components/lives/view-stream/view-stream.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -51,6 +54,9 @@ const routes: Routes = [
   {path: 'courses/:id/assignment/create',component: AssignmentFormComponent},
   {path: 'courses/:id/assignment', component: AssignmentListComponent},
   {path: 'assignment/:id',component:AssignmentComponent},
+
+  {path: 'courses/:id/live', component: CreateStreamComponent},
+  {path: 'courses/:id/live/view',component: ViewStreamComponent},
 
   {path: 'courses/:id/sections/:secId/class-form',component: ClassFormComponent,
     children:[
