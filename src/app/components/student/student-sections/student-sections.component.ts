@@ -23,6 +23,8 @@ export class StudentSectionsComponent {
   sections!: SectionDto[]
   sectionsUI: SectionUI[] = [];
   courseName!: string;
+
+  courseId = this.activeRoute.snapshot.params['courseId'];
   constructor() {
     console.log(this.activeRoute.snapshot.params['courseId']);
     this.courseService.getSectionsByCourseId(this.activeRoute.snapshot.params['courseId']).subscribe(

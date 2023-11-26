@@ -24,6 +24,8 @@ import {ClassListComponent} from "./components/courses/class-list/class-list.com
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
 import {TakenCoursesListComponent} from "./components/student/taken-courses-list/taken-courses-list.component";
 import {StudentSectionsComponent} from "./components/student/student-sections/student-sections.component";
+import {StudentClassesComponent} from "./components/student/student-classes/student-classes.component";
+import {StudentVideoComponent} from "./components/student/student-video/student-video.component";
 const routes: Routes = [
   {
     path: 'home',
@@ -61,6 +63,8 @@ const routes: Routes = [
 
   {path: 'courses/student/:kcId', component: TakenCoursesListComponent},
   {path: 'student/courses/:courseId/sections', component: StudentSectionsComponent},
+  {path: 'student/courses/:courseId/sections/:sectionId/classes', component: StudentClassesComponent},
+  {path: 'student/courses/:courseId/sections/:sectionId/classes/:classId', component: StudentVideoComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

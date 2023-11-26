@@ -50,6 +50,11 @@ import { TakenCoursesListComponent } from './components/student/taken-courses-li
 import { StudentSectionsComponent } from './components/student/student-sections/student-sections.component';
 import {TimelineModule} from "primeng/timeline";
 import { StudentClassesComponent } from './components/student/student-classes/student-classes.component';
+import {VirtualScrollerModule} from "primeng/virtualscroller";
+import {CarouselModule} from "primeng/carousel";
+import {TagModule} from "primeng/tag";
+import { StudentVideoComponent } from './components/student/student-video/student-video.component';
+import {SkeletonModule} from "primeng/skeleton";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -94,7 +99,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     StudentRegisterComponent,
     TakenCoursesListComponent,
     StudentSectionsComponent,
-    StudentClassesComponent
+    StudentClassesComponent,
+    StudentVideoComponent
   ],
     imports: [
         BrowserModule,
@@ -122,6 +128,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
         DialogModule,
         StepsModule,
         TimelineModule,
+        VirtualScrollerModule,
+        CarouselModule,
+        TagModule,
+        SkeletonModule,
     ],
   providers: [
     {
