@@ -1,28 +1,35 @@
-<form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+<div class="container my-4" style="max-width: 800px;"> <!-- Contenedor centrado con ancho máximo -->
+  <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
     <!-- Título del Assignment -->
-    <div class="form-group">
-      <label for="title">Título del Assignment</label>
-      <input type="text" class="form-control" id="title" formControlName="title">
+    <div class="row mb-3">
+      <div class="col-12">
+        <label for="title">Título del Assignment</label>
+        <input type="text" class="form-control" id="title" formControlName="title">
+      </div>
     </div>
-  
-    <!-- Tipo de Assignment -->
-      <div class="form-group">
-        <label for="assignmentType">Tipo de Assignment</label>
+
+    <!-- Tipo de Assignment y Sección del curso -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="assignmentType">Tipo de Assignment</label>        
         <p-dropdown [options]="assignmentTypes" optionLabel="description" (onChange)="onAssignmentTypeChange($event)"></p-dropdown>
       </div>
       
-      <div class="form-group">
-          <label for="section">Sección del curso</label>
-          <p-dropdown [options]="sections" optionLabel="title" (onChange)="onSectionChange($event)"></p-dropdown>
+      <div class="col-md-6">
+        <label for="section">Sección del curso</label>
+        <p-dropdown [options]="sections" optionLabel="title" (onChange)="onSectionChange($event)"></p-dropdown>
       </div>
-    
-  
+    </div>
+
+    <!-- Preguntas -->
     <div formArrayName="questions">
       <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i">
-        <div class="card">
+        <div class="card mb-3">
           <div class="card-header">
             <h5>Pregunta {{ i + 1 }}</h5>
-            <button type="button" class="btn btn-sm btn-toggle" (click)="toggleQuestion(i)">Minimizar</button>
+            <button type="button" class="btn btn-sm btn-toggle" (click)="toggleQuestion(i)">
+              <i [ngClass]="isQuestionVisible(i) ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></i>
+            </button>
           </div>
           <div class="card-body" *ngIf="isQuestionVisible(i)">
             <div class="mb-3">
@@ -50,11 +57,20 @@
         </div>
       </div>
     </div>
-  
-    <!-- Botones de acción -->
-    <div class="form-actions">
-      <button type="button" class="btn btn-outline-secondary" (click)="addQuestion()">Añadir Pregunta</button>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+
+    <div class="row mt-4">
+      <!-- Botón Añadir Pregunta -->
+      <div class="col-6 text-start">
+        <button type="button" class="btn btn-outline-secondary" (click)="addQuestion()">Añadir Pregunta</button>
+      </div>
     </div>
+    <div class="row mt-4">
+
+      <!-- Botón Enviar -->
+      <div class="col-6 text-end">
+        <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+      </div>
+    </div>
+    
   </form>
-  
+</div>
