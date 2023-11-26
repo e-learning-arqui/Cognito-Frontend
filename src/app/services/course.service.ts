@@ -9,6 +9,7 @@ import {CourseDto} from "../model/dto/CourseDto";
 import {CourseEnv} from "../environments/course";
 import {SectionDto} from "../model/dto/SectionDto";
 import {ClassDto} from "../model/dto/ClassDto";
+import {CourseAndProgress} from "../model/CourseAndProgress";
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class CourseService {
   private API_URL = 'http://localhost:7777/';
   private http: HttpClient = inject(HttpClient)
   private coursesRepo = inject(CourseRepository);
-
+  private studentCoursesRepo = inject(CourseRepository);
   constructor() {
 
   }
@@ -45,6 +46,23 @@ export class CourseService {
       this.coursesRepo.setCourses(response.response);
     }
     )
+  }
+
+  getStudentCourses(keycloakId: string, page: number, size: number, filters: any = {}) {
+    let params = `page=${page}&size=${size}`;
+
+    if(filters.title) params += `&title=${filters.title}`;
+    if(filters.languageId) params += `&languageId=${filters.languageId}`;
+    if(filters.levelId) params += `&levelId=${filters.levelId}`;
+    if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
+
+    return this.http.get<ApiResponse<Paginator<CourseAndProgress>>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?${params}`)
+      .pipe(
+        tap((response) => {
+          this.studentCoursesRepo.setCourses(response.response);
+          console.log(response.response, " response back from server");
+        })
+      )
   }
 
   createCourse(course: CourseDto){
@@ -121,6 +139,10 @@ export class CourseService {
     return this.http.get<ApiResponse<ClassDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/classes/all`)
   }
 
+
+  subToCourse(courseTitle: string, keycloakId: string) {
+    return this.http.post<ApiResponse<String>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?courseName=${courseTitle}`, null)
+  }
 
 
 }

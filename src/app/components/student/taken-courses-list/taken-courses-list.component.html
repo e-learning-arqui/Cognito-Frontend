@@ -10,38 +10,49 @@
     <div class="col-md-2">
       <label>Categoría</label>
       <p-dropdown [(ngModel)]="selectedCategory" [options]="categories" placeholder="Selecciona categoría" optionLabel="categoryName" optionValue="categoryId" (onChange)="applyFilters()"></p-dropdown>
-
     </div>
     <div class="col-md-2">
       <label>Idioma</label>
       <p-dropdown [(ngModel)]="selectedLanguage" [options]="languages" placeholder="Selecciona idioma" optionLabel="languageName" optionValue="languageId" (onChange)="applyFilters()"></p-dropdown>
-
     </div>
     <div class="col-md-2">
       <label>Nivel</label>
       <p-dropdown [(ngModel)]="selectedLevel" [options]="levels" placeholder="Selecciona nivel" optionLabel="levelName" optionValue="levelId" (onChange)="applyFilters()"></p-dropdown>
-
     </div>
     <div class="col-md-2">
       <button pButton type="button" label="Limpiar filtro" class="btn btn-secondary" (click)="clearFilters()"></button>
     </div>
   </div>
 
-  <div class="row justify-content-center">
-    <div class="col-md-4 mb-5" *ngFor="let course of courses">
-      <div class="card">
-        <img class="card-img-top" [src]="course.logoUrl" alt="{{course.title}} image" [style]="{'height': '240px', 'width' : '100%'}">
-        <div class="card-body">
-          <h5 class="card-title">{{ course.title }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{course.subCategoryName}}</h6>
-          <p class="card-text" style="font-size: 14px">{{ course.description }}</p>
-        </div>
-        <div class="card-footer d-flex justify-content-center">
-          <button pButton type="button" label="Comenzar" icon="pi pi-check" class="btn btn-custom" (click)="subToCourse(course.title)"></button>
+  <ng-container *ngIf="courses.length > 0; else noCourses">
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-5" *ngFor="let course of courses">
+        <div class="card">
+          <img class="card-img-top" [src]="course.logoUrl" alt="{{course.title}} image" [style]="{'height': '240px', 'width' : '100%'}">
+          <div class="card-body">
+            <h5 class="card-title">{{ course.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{course.subCategoryName}}</h6>
+            <p class="card-text">{{ course.description }}</p>
+
+            <p>Tu progreso: {{ (course.progressPercent * 100).toFixed(2) }}%</p>
+            <p-progressBar [value]="course.progressPercent * 100"></p-progressBar>
+          </div>
+
+          <button pButton type="button" label="Ver curso"  [routerLink]="['/student/courses/',course.id, 'sections']"
+                  class="p-button-rounded p-button-primary"
+          ></button>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-template #noCourses>
+    <div class="row justify-content-center">
+      <div class="col-md-12 d-flex justify-content-center">
+        <h1>No tienes cursos activos en este momento.</h1>
+      </div>
+    </div>
+  </ng-template>
 
   <div class="row mt-5">
     <div class="col-md-12 d-flex justify-content-center">

@@ -46,6 +46,15 @@ import { ClassListComponent } from './components/courses/class-list/class-list.c
 import { AssignmentListComponent } from './components/assignments/assignment-list/assignment-list.component';
 import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
+import { TakenCoursesListComponent } from './components/student/taken-courses-list/taken-courses-list.component';
+import { StudentSectionsComponent } from './components/student/student-sections/student-sections.component';
+import {TimelineModule} from "primeng/timeline";
+import { StudentClassesComponent } from './components/student/student-classes/student-classes.component';
+import {VirtualScrollerModule} from "primeng/virtualscroller";
+import {CarouselModule} from "primeng/carousel";
+import {TagModule} from "primeng/tag";
+import { StudentVideoComponent } from './components/student/student-video/student-video.component';
+import {SkeletonModule} from "primeng/skeleton";
 import { CreateStreamComponent } from './components/lives/create-stream/create-stream.component';
 import { ViewStreamComponent } from './components/lives/view-stream/view-stream.component';
 
@@ -90,6 +99,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AssignmentListComponent,
     AssignmentComponent,
     StudentRegisterComponent,
+    TakenCoursesListComponent,
+    StudentSectionsComponent,
+    StudentClassesComponent,
+    StudentVideoComponent,
     CreateStreamComponent,
     ViewStreamComponent
   ],
@@ -118,6 +131,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
         TreeTableModule,
         DialogModule,
         StepsModule,
+        TimelineModule,
+        VirtualScrollerModule,
+        CarouselModule,
+        TagModule,
+        SkeletonModule,
     ],
   providers: [
     {

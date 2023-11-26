@@ -1,0 +1,21 @@
+<div class="card timeline-card" style="padding: 24px; ">
+  <h2 class="timeline-title text-center" style="margin-bottom: 36px">Bienvenido al curso: {{courseName}}</h2>
+  <p-timeline [value]="sections" align="alternate" styleClass="customized-timeline">
+    <ng-template pTemplate="marker" let-section>
+      <span class="custom-marker shadow-4" >
+        <i [ngClass]="icon">
+        </i>
+      </span>
+    </ng-template>
+    <ng-template pTemplate="content" let-sectionUI>
+      <p-card [header]="sectionUI.title" class="timeline-content">
+        <p class="timeline-description">
+          {{sectionUI.description}}
+        </p>
+        <button pButton label="Ver Clases" class="p-button-text timeline-button"
+        [routerLink]="[ '/student/courses', courseId, 'sections', sectionUI.id, 'classes']"
+        ></button>
+      </p-card>
+    </ng-template>
+  </p-timeline>
+</div>

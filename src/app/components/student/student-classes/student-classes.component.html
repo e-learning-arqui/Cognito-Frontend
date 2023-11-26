@@ -1,0 +1,21 @@
+
+<p-carousel [value]="classes" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <ng-template let-classItem let-i="index" pTemplate="item">
+        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+            <div class="mb-3">
+                <img src="assets/images/video.png"    style="width: 200px; height: 200px;" alt="product">
+            </div>
+            <div>
+                <h4 class="mb-1">{{ classItem.title }}</h4>
+                <h6 class="mt-0 mb-3">{{ 'Descripción: ' + classItem.description }}</h6>
+                <p-tag [value]="'Clase: ' + classItem.classId" [severity]="'success'"></p-tag>
+                <div class="car-buttons mt-5">
+                    <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-video"
+                    [style]="{'text-color': '#fffffff', 'color': '#ffffff'}" label="Ver Clase"
+                    (click)="toVideo(classItem.classId)"></p-button>
+
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>

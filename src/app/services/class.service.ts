@@ -5,6 +5,7 @@ import {ApiResponse} from "../model/paginator";
 import {ClassRepository} from "../store/classStore";
 import {tap} from "rxjs";
 import {UrlDto} from "../model/dto/UrlDto";
+import {ProgressMessageDto} from "../model/dto/ProgressMessagDto";
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,38 @@ export class ClassService {
       )
   }
 
+  findClassesBySectionId(sectionId: number){
+    return this.http.get<ApiResponse<ClassDto[]>>(`http://localhost:7777/api/v1/courses/sections/${sectionId}/classes`)
+  }
+
   saveClass(classDto: ClassDto, sectionId: number){
     return this.http.post<ApiResponse<number>>(`http://localhost:7777/api/v1/courses/sections/${sectionId}/classes`, classDto);
   }
 
   findClassById(id: number){
    return this.http.get<ApiResponse<ClassDto>>(`http://localhost:7777/api/v1/courses/classes/${id}`);
+  }
+
+  findUrlByClassId(id: number){
+    return this.http.get<ApiResponse<UrlDto>>(`${this.API_URL}/classes/${id}/files`);
+  }
+
+  sendProgressNotification(progressMessage: ProgressMessageDto) {
+
+
+    const routingKey = "progress.RoutingKey";
+
+
+
+    return this.http.post<ApiResponse<string>>(
+        `http://localhost:7777/api/v1/courses/classes/progress?routingKey=progress.routingKey`,
+        progressMessage,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    );
   }
 
   setSectionUrl(sectionId: number){

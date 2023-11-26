@@ -22,6 +22,11 @@ import { AssignmentComponent } from './components/assignments/assignment/assignm
 
 import {ClassListComponent} from "./components/courses/class-list/class-list.component";
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
+import {TakenCoursesListComponent} from "./components/student/taken-courses-list/taken-courses-list.component";
+import {StudentSectionsComponent} from "./components/student/student-sections/student-sections.component";
+import {StudentClassesComponent} from "./components/student/student-classes/student-classes.component";
+import {StudentVideoComponent} from "./components/student/student-video/student-video.component";
+
 import { CreateStreamComponent } from './components/lives/create-stream/create-stream.component';
 import { ViewStreamComponent } from './components/lives/view-stream/view-stream.component';
 const routes: Routes = [
@@ -59,7 +64,13 @@ const routes: Routes = [
       {path: 'add-video',component: ClassVideoComponent}
 
     ]},
+
   { path: 'courses/:id/sections/:secId/classes', component: ClassListComponent},
+
+  {path: 'courses/student/:kcId', component: TakenCoursesListComponent},
+  {path: 'student/courses/:courseId/sections', component: StudentSectionsComponent},
+  {path: 'student/courses/:courseId/sections/:sectionId/classes', component: StudentClassesComponent},
+  {path: 'student/courses/:courseId/sections/:sectionId/classes/:classId', component: StudentVideoComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
