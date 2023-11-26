@@ -19,4 +19,8 @@ export class UserService {
   registerStudent(student: UserDto){
     return this.http.post(this.API_URL + 'api/v1/users/students', student);
   }
+  updateSubscription(userKcId: string){
+    // @ts-ignore
+    return this.http.put('http://localhost:8081/users/api/v1/users/student' + userKcId + '/subscription');
+  }
 }

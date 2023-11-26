@@ -1,18 +1,52 @@
+<!-- Contenedor principal -->
 <div class="container mt-5">
-    <div class="row mt-4">
-      <div *ngFor="let assignment of assignmentStore.assignment$ | async" class="col">     
-        <div class="card">
-          <div class="card-body">
-            <h2 class="card-title">{{ assignment.title }}</h2> 
+  <!-- Bucle para cada sección -->
+  <div *ngFor="let section of sections; let i = index" class="mt-4">
+    <!-- Condición para añadir una línea divisoria si no es la primera sección -->
+    <div *ngIf="i > 0" class="divider"></div>
+    
+    <!-- Encabezado de sección con estilo -->
+    <div class="section-header bg-secondary text-white p-3 rounded">
+      <h3>{{ section.title }}</h3>
+      <p>{{ section.description }}</p>
+    </div>
+
+    <!-- Filas de tarjetas -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+      <!-- Bucle para cada tarea -->
+      <div *ngFor="let assignment of getAssignmentsBySection(section.sectionId)" class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <h4 class="card-title">{{ assignment.title }}</h4>
             <p class="card-text">Fecha de creación: {{ assignment.startDate | date: 'dd-MM-yyyy' }}</p>
-            <div class="d-flex justify-content-center">
-                <p-toast></p-toast>
-                <p-confirmPopup></p-confirmPopup>
-                <button type="button" pButton label="Tomar evaluación"  (click)="confirm($event, assignment.id)" class="btn btn-primary"></button>
+            <div class="mt-auto">
+              <p-toast></p-toast>
+              <p-confirmPopup></p-confirmPopup>
+              <button type="button" pButton label="Tomar evaluación" (click)="confirm($event, assignment.id)" class="btn btn-primary w-100 mt-3"></button>
+              <br>
+              <!-- Dentro del *ngFor de las asignaciones -->
+              <button type="button" pButton label="Ver Calificación" (click)="showScore(assignment.id)" class="btn btn-info mt-2"></button>
+
             </div>
           </div>
         </div>
       </div>
+      <!-- Mensaje si no hay tareas -->
+      <div *ngIf="getAssignmentsBySection(section.sectionId).length === 0" class="col">
+        <p>No hay exámenes todavía.</p>
+      </div>
     </div>
+  </div>
 </div>
-  
+
+<!-- Resto de tu HTML, como las listas de asignaciones, botones, etc. -->
+
+<!-- Aquí colocas el p-dialog al final -->
+<p-dialog header="Calificación" [(visible)]="displayScoreModal">
+  <div *ngIf="scoreDto; else noScore">
+      Calificación: {{ scoreDto.score }}/{{ scoreDto.maxScore }}
+  </div>
+  <ng-template #noScore>
+      <div>Aún no se realizó la prueba o se salió al dar la mims</div>
+  </ng-template>
+</p-dialog>
