@@ -47,6 +47,7 @@ import { AssignmentListComponent } from './components/assignments/assignment-lis
 import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
 import { CreateStreamComponent } from './components/lives/create-stream/create-stream.component';
+import { ViewStreamComponent } from './components/lives/view-stream/view-stream.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -89,7 +90,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AssignmentListComponent,
     AssignmentComponent,
     StudentRegisterComponent,
-    CreateStreamComponent
+    CreateStreamComponent,
+    ViewStreamComponent
   ],
     imports: [
         BrowserModule,

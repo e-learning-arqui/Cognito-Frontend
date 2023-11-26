@@ -34,6 +34,10 @@ export class StreamService {
     return this.http.post(`${this.API_URL}/api/v1/course/${id}/create-channel`,{})
   }
 
-
+  getPlayback(id:number){
+    return this.http.get<ApiResponse<string>>(`${this.API_URL}/api/v1/course/${id}/channel/playback`).pipe(
+      tap((response) => console.log(response)),
+    )
+  }
   
 }

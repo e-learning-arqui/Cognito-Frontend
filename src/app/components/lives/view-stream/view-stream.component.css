@@ -1,0 +1,13 @@
+/*@import '~video.js/dist/video-js.css';*/
+/* reproductor-video.component.css */
+.video-container {
+    width: 100%; /* O el ancho que desees */
+    max-width: 800px; /* Un ancho máximo si es necesario */
+    margin: auto; /* Centrar el contenedor si no ocupa todo el ancho */
+  }
+  
+  .video-player {
+    width: 100%; /* Ocupar todo el ancho del contenedor */
+    height: auto; /* Mantener la relación de aspecto */
+  }
+  

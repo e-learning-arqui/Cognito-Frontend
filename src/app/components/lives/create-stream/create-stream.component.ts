@@ -35,6 +35,7 @@ export class CreateStreamComponent {
       accept: () => {
         this.streamService.getVerification(this.route.snapshot.params['id']).subscribe((response) => {
           if(response.response === false){
+              console.log("creando canal")
               this.streamService.createChannel(this.route.snapshot.params['id']).subscribe((response)=>{
                 console.log("channel created")
               });              
