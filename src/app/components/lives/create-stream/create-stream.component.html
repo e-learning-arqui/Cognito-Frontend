@@ -1,1 +1,19 @@
-<p>create-stream works!</p>
+<div class="container mt-5">
+    <div class="row mt-4">
+      <div *ngFor="let stream of streamStore.streamKey$  | async" class="col">     
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">STREAM KEY {{ stream.ingestEndpoint}}</h2> 
+            <p class="card-text">Fecha de creación: {{ stream.streamKey }}</p> 
+            <div class="d-flex justify-content-center">
+                <p-toast></p-toast>
+                <p-confirmPopup></p-confirmPopup>
+                <button type="button" pButton label="Iniciar Stream?"  (click)="confirm($event)" class="btn btn-primary"></button>
+            </div>
+            <!-- <button class="btn btn-custom" (click)="onSubscribe(assignment)">Tomar examen</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  

@@ -22,6 +22,7 @@ import { AssignmentComponent } from './components/assignments/assignment/assignm
 
 import {ClassListComponent} from "./components/courses/class-list/class-list.component";
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
+import { CreateStreamComponent } from './components/lives/create-stream/create-stream.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -47,6 +48,8 @@ const routes: Routes = [
   {path: 'courses/:id/assignment/create',component: AssignmentFormComponent},
   {path: 'courses/:id/assignment', component: AssignmentListComponent},
   {path: 'assignment/:id',component:AssignmentComponent},
+
+  {path: 'courses/:id/live', component: CreateStreamComponent},
 
   {path: 'courses/:id/sections/:secId/class-form',component: ClassFormComponent,
     children:[
