@@ -3,6 +3,8 @@ import {selectAllEntities, upsertEntities, withEntities} from "@ngneat/elf-entit
 import {Course} from "../model/Course";
 import {Injectable} from "@angular/core";
 import {Paginator} from "../model/paginator";
+import {ProgressDto} from "../model/dto/ProgressDto";
+import {CourseAndProgress} from "../model/CourseAndProgress";
 
 export interface StudentCourseProps {
   totalElements: number;
@@ -17,7 +19,9 @@ export interface StudentCourseProps {
 }
 const studentCoursesStore = createStore(
   { name: 'studentCourses' },
-  withEntities<Course>(),
+  withEntities<CourseAndProgress>(),
+  withEntities<ProgressDto>(),
+
   withProps<StudentCourseProps>({totalElements: 0, totalPages: 0, currentPage: 0/*,filters: {}*/})
   );
 

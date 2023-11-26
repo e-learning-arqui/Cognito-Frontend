@@ -33,11 +33,19 @@
             <h5 class="card-title">{{ course.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{course.subCategoryName}}</h6>
             <p class="card-text">{{ course.description }}</p>
+
+            <p>Tu progreso: {{ (course.progressPercent * 100).toFixed(2) }}%</p>
+            <p-progressBar [value]="course.progressPercent * 100"></p-progressBar>
           </div>
+
+          <button pButton type="button" label="Ver curso"  [routerLink]="['/student/courses/',course.id, 'sections']"
+                  class="p-button-rounded p-button-primary"
+          ></button>
         </div>
       </div>
     </div>
   </ng-container>
+
   <ng-template #noCourses>
     <div class="row justify-content-center">
       <div class="col-md-12 d-flex justify-content-center">

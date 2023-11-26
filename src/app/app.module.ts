@@ -47,6 +47,9 @@ import { AssignmentListComponent } from './components/assignments/assignment-lis
 import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
 import { StudentRegisterComponent } from './components/user/student-register/student-register.component';
 import { TakenCoursesListComponent } from './components/student/taken-courses-list/taken-courses-list.component';
+import { StudentSectionsComponent } from './components/student/student-sections/student-sections.component';
+import {TimelineModule} from "primeng/timeline";
+import { StudentClassesComponent } from './components/student/student-classes/student-classes.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -89,7 +92,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AssignmentListComponent,
     AssignmentComponent,
     StudentRegisterComponent,
-    TakenCoursesListComponent
+    TakenCoursesListComponent,
+    StudentSectionsComponent,
+    StudentClassesComponent
   ],
     imports: [
         BrowserModule,
@@ -116,6 +121,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         TreeTableModule,
         DialogModule,
         StepsModule,
+        TimelineModule,
     ],
   providers: [
     {

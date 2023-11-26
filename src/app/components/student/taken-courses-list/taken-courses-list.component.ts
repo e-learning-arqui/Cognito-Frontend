@@ -12,6 +12,7 @@ import {CourseService} from "../../../services/course.service";
 import {MessageService} from "primeng/api";
 import {StudentCoursesRepository} from "../../../store/studentCoursesStore";
 import {PaginatorState} from "primeng/paginator";
+import {CourseAndProgress} from "../../../model/CourseAndProgress";
 
 @Component({
   selector: 'app-taken-courses-list',
@@ -35,14 +36,14 @@ export class TakenCoursesListComponent {
   first = 0;
   course$ = this.studentRepo.studentCourses$;
   maxSize = 0;
-  courses : Course[] = [];
+  courses : CourseAndProgress[] = [];
   totalElements = 0;
   rows: number | undefined = 6;
   constructor(private studentRepo: StudentCoursesRepository, private courseService: CourseService) {
     this.courseService.getStudentCourses(this.KEYCLOAK_ID!,0, this.rows!).subscribe(
       (response) => {
-        this.courses = response.response.content;
-        //this.courseRepo.setCourses(response.response);
+        //this.courses = response.response.content;
+        this.studentRepo.setCourses(response.response);
 
       }
     )
@@ -50,7 +51,7 @@ export class TakenCoursesListComponent {
       const courseProps = this.studentRepo.getStudentCourseProps();
       this.maxSize = courseProps.totalPages;
       this.totalElements = courseProps.totalElements;
-      //this.courses = response;
+      this.courses = response;
     });
   }
   ngOnInit() {
@@ -72,7 +73,7 @@ export class TakenCoursesListComponent {
   onPageChange(event: PaginatorState) {
     this.first = event.first!;
     this.rows = event.rows;
-    this.courseService.getCourses(event.page!, this.rows!).subscribe(
+    this.courseService.getStudentCourses(this.KEYCLOAK_ID!, event.page!, this.rows!).subscribe(
       (response) => {
         this.courses = response.response.content;
       }
@@ -107,7 +108,7 @@ export class TakenCoursesListComponent {
       categoryId: this.selectedCategory
     };
 
-    this.courseService.getCourses(0, this.rows!, filters).subscribe((response) => {
+    this.courseService.getStudentCourses(this.KEYCLOAK_ID!,0, this.rows!, filters).subscribe((response) => {
       this.courses = response.response.content;
 
       // Actualizar totalElements y resetear la paginación.

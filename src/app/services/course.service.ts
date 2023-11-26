@@ -9,6 +9,7 @@ import {CourseDto} from "../model/dto/CourseDto";
 import {CourseEnv} from "../environments/course";
 import {SectionDto} from "../model/dto/SectionDto";
 import {ClassDto} from "../model/dto/ClassDto";
+import {CourseAndProgress} from "../model/CourseAndProgress";
 
 
 @Injectable({
@@ -55,7 +56,7 @@ export class CourseService {
     if(filters.levelId) params += `&levelId=${filters.levelId}`;
     if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
 
-    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?${params}`)
+    return this.http.get<ApiResponse<Paginator<CourseAndProgress>>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?${params}`)
       .pipe(
         tap((response) => {
           this.studentCoursesRepo.setCourses(response.response);

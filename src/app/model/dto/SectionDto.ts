@@ -1,6 +1,6 @@
 export interface SectionDto{
 
-  sectionId?: number;
+  id?: number;
   courseId: number;
   title: string;
   description: string;

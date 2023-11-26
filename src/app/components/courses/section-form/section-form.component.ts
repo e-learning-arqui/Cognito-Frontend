@@ -70,18 +70,14 @@ export class SectionFormComponent {
         // @ts-ignore
         this.sections = data.response!.map((section: SectionDto) => {
           return {
-            key: section.sectionId,
+            key: section.id,
             label: section.title,
             data: section,
             children:[
-
-              {key: `${section.sectionId}-1`, label: 'Hola', data: 'Hola', children: []},
-
+              {key: `${section.id}-1`, label: 'Hola', data: 'Hola', children: []},
             ]
-
           };
         });
-
       }
     );
     this.cols = [
@@ -112,6 +108,7 @@ export class SectionFormComponent {
       status: true
     }
     this.courseService.saveSection(newSection, courseId);
+    this.ngOnInit();
   }
 
   deleteSection(sectionId: number) {
