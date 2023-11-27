@@ -11,10 +11,12 @@ import {CourseEnv} from "../environments/course";
 })
 export class LanguageService {
   API_URL = `${CourseEnv.COURSE_URL}/api/v1/courses`;
+  COURSE_URL = `http://localhost:8081/courses`;
   http: HttpClient = inject(HttpClient)
   constructor() { }
 
   getLanguages() {
-    return this.http.get<ApiResponse<LanguageDto[]>>(`${this.API_URL}/language/all`);
+    const URL = `${this.COURSE_URL}/api/v1/courses/languages/all`;
+    return this.http.get<ApiResponse<LanguageDto[]>>(URL);
   }
 }

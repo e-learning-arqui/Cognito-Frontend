@@ -16,10 +16,14 @@ export class ClassService {
   private http: HttpClient = inject(HttpClient);
   private classStore: ClassRepository = inject(ClassRepository);
   private API_URL = 'http://localhost:8001/api/v1/files';
+
+  private FILE_URL = 'http://localhost:8081/files';
+  private COURSE_URL = 'http://localhost:8081/courses';
   constructor() { }
 
   findClassesByCourseId(courseId: number){
-    return this.http.get<ApiResponse<UrlDto[]>>(`${this.API_URL}/courses/${courseId}/files`)
+    const URL = `${this.FILE_URL}/api/v1/files/courses/${courseId}/files`;
+    return this.http.get<ApiResponse<UrlDto[]>>(URL)
       .pipe(
         tap((response) => {
           this.classStore.setClasses(response.response);
@@ -28,30 +32,35 @@ export class ClassService {
   }
 
   findClassesBySectionId(sectionId: number){
-    return this.http.get<ApiResponse<ClassDto[]>>(`http://localhost:7777/api/v1/courses/sections/${sectionId}/classes`)
+    const URL = `${this.COURSE_URL}/api/v1/courses/sections/${sectionId}/classes`;
+    return this.http.get<ApiResponse<ClassDto[]>>(URL)
   }
 
   saveClass(classDto: ClassDto, sectionId: number){
-    return this.http.post<ApiResponse<number>>(`http://localhost:7777/api/v1/courses/sections/${sectionId}/classes`, classDto);
+    const URL = `${this.COURSE_URL}/api/v1/courses/sections/${sectionId}/classes`;
+    return this.http.post<ApiResponse<number>>(URL, classDto);
   }
 
   findClassById(id: number){
-   return this.http.get<ApiResponse<ClassDto>>(`http://localhost:7777/api/v1/courses/classes/${id}`);
+    const URL = `${this.COURSE_URL}/api/v1/courses/classes/${id}`;
+   return this.http.get<ApiResponse<ClassDto>>(URL);
   }
 
   findUrlByClassId(id: number){
-    return this.http.get<ApiResponse<UrlDto>>(`${this.API_URL}/classes/${id}/files`);
+
+    const URL = `${this.FILE_URL}/api/v1/files/classes/${id}/files`;
+    return this.http.get<ApiResponse<UrlDto>>(URL);
   }
 
   sendProgressNotification(progressMessage: ProgressMessageDto) {
 
 
-    const routingKey = "progress.RoutingKey";
+    const routingKey = "progress.routingKey";
 
-
+    const URL = `${this.COURSE_URL}/api/v1/courses/classes/progress?routingKey=${routingKey}`;
 
     return this.http.post<ApiResponse<string>>(
-        `http://localhost:7777/api/v1/courses/classes/progress?routingKey=progress.routingKey`,
+        URL,
         progressMessage,
         {
             headers: {
