@@ -83,8 +83,8 @@ export class AssignmentListComponent {
   private initializeSectionsMap(sections: SectionDto[], assignments: AssignmentDto[]): void {
     // Inicializar el mapa de secciones con arrays vacíos
     sections.forEach(section => {
-      if (typeof section.sectionId !== 'undefined') {
-        this.sectionsMap[section.sectionId] = [];
+      if (typeof section.id !== 'undefined') {
+        this.sectionsMap[section.id] = [];
       }
     });
   

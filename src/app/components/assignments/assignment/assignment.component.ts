@@ -86,6 +86,7 @@ export class AssignmentComponent implements OnInit {
         next: (response) => {
           console.log('Respuestas enviadas con éxito', response);
           this.getScore(assignmentId, keycloakId);
+
         },
         error: (error) => {
           console.error('Error al enviar respuestas', error);
@@ -102,7 +103,15 @@ export class AssignmentComponent implements OnInit {
         console.error('Error al obtener la calificación', error);
       }
     });
+
+
   }
+
+  goToMenu(){
+    this.router.navigate([`/courses`]);
+
+  }
+
 
   confirm(event: Event){
     this.confirmationService.confirm({

@@ -6,8 +6,21 @@
         <th *ngFor="let col of columns">
           {{ col.header }}
         </th>
+        <!-- MUESTRAS LO DE ABAJO SI ES PROFESSOR-->
         <th style="width: 10rem">
-          <p-button icon="pi pi-cog"></p-button>
+          <p-toast></p-toast>
+          <p-confirmPopup></p-confirmPopup>
+          <p-button icon="pi pi-video"  (click)="confirm($event)" ></p-button>
+        </th>
+        <th style="width: 10rem">
+          <!--Agregar assignment para professor por sia xd-->
+          <p-button icon="pi pi-book"  [style]="{ 'margin-left': '.5em' }"  (click)="addAssignment()"></p-button>
+        </th>
+        <th style="width: 10rem">
+
+          <!--Ver assignments para student-->
+          <p-button icon="pi pi-book"  [style]="{ 'margin-left': '.5em' }"  (click)="viewAssignment()"></p-button>
+
         </th>
       </tr>
     </ng-template>
@@ -21,12 +34,16 @@
           <p-button icon="pi pi-pencil" styleClass="p-button-warning" [style]="{ 'margin-right': '.5em' }"  (click)="goToclassList(rowData.id)"> </p-button>
           <p-button icon="pi pi-trash" styleClass="p-button-danger" (click)="deleteSection(rowData.id)"></p-button>
 
+
+
+
+
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
       <div style="text-align:left">
-        <p-button (click)="showNewSectionDialog()" icon="pi pi-refresh" label="Añadir"></p-button>
+        <p-button (click)="showNewSectionDialog()" icon="pi pi-plus" label="Añadir"></p-button>
       </div>
     </ng-template>
   </p-treeTable>

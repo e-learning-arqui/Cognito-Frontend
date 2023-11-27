@@ -11,6 +11,7 @@ import { LevelDto } from 'src/app/model/dto/LevelDto';
 import { CategoryDto } from 'src/app/model/dto/CategoryDto';
 import {KeycloakService} from "keycloak-angular";
 import {Message, MessageService} from "primeng/api";
+import { Router } from '@angular/router';
 interface PaginatorState{
   first?: number;
   rows?: number;
@@ -35,6 +36,7 @@ export class CourseListComponent{
   languageService : LanguageService = inject(LanguageService);
   levelService : LevelService = inject(LevelService);
   keycloak: KeycloakService = inject(KeycloakService);
+  router: Router= inject(Router)
   // private courseRepo: CourseRepository = inject(CourseRepository);
   // private courseService: CourseService = inject(CourseService);
 
@@ -145,6 +147,11 @@ export class CourseListComponent{
       }
 
     });
+  }
+
+  goToSections(id: number){
+    this.router.navigate([`courses/${id}/sections`])
+
   }
 
 

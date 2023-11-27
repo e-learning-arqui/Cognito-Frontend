@@ -14,7 +14,7 @@
     <!-- Filas de tarjetas -->
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
       <!-- Bucle para cada tarea -->
-      <div *ngFor="let assignment of getAssignmentsBySection(section.sectionId)" class="col">
+      <div *ngFor="let assignment of getAssignmentsBySection(section.id)" class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body d-flex flex-column">
             <h4 class="card-title">{{ assignment.title }}</h4>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <!-- Mensaje si no hay tareas -->
-      <div *ngIf="getAssignmentsBySection(section.sectionId).length === 0" class="col">
+      <div *ngIf="getAssignmentsBySection(section.id).length === 0" class="col">
         <p>No hay exámenes todavía.</p>
       </div>
     </div>

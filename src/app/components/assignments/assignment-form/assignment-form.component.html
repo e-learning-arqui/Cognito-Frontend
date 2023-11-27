@@ -13,11 +13,13 @@
       <div class="col-md-6">
         <label for="assignmentType">Tipo de Assignment</label>        
         <p-dropdown [options]="assignmentTypes" optionLabel="description" (onChange)="onAssignmentTypeChange($event)"></p-dropdown>
+
       </div>
       
       <div class="col-md-6">
         <label for="section">Sección del curso</label>
         <p-dropdown [options]="sections" optionLabel="title" (onChange)="onSectionChange($event)"></p-dropdown>
+
       </div>
     </div>
 

@@ -34,4 +34,7 @@
 </div>
 <p-dialog header="Calificación" [(visible)]="displayScoreModal">
     <div *ngIf="scoreDto">Calificación: {{ scoreDto.score }}/{{ scoreDto.maxScore }}</div>
+    <button type="button" class="btn btn-outline-primary" (click)="goToMenu()">Regresar al Menu</button>
+
+
 </p-dialog>
