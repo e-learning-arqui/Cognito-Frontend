@@ -20,32 +20,26 @@ export class CourseService {
   private http: HttpClient = inject(HttpClient)
   private coursesRepo = inject(CourseRepository);
   private studentCoursesRepo = inject(CourseRepository);
+  private COURSE_URL = 'http://localhost:8081/courses';
+  private FILE_URL = 'http://localhost:8081/files';
   constructor() {
 
   }
 
   getCourses(page: number, size: number, filters: any = {}) {
     let params = `page=${page}&size=${size}`;
-
     if(filters.title) params += `&title=${filters.title}`;
     if(filters.languageId) params += `&languageId=${filters.languageId}`;
     if(filters.levelId) params += `&levelId=${filters.levelId}`;
     if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
+    const URL = `${this.COURSE_URL}/api/v1/courses?${params}`;
 
-    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?${params}`)
+    return this.http.get<ApiResponse<Paginator<Course>>>(`${URL}`)
       .pipe(
         tap((response) => {
           this.coursesRepo.setCourses(response.response);
         })
       )
-  }
-  getCourses2(page: number, size: number) {
-
-    return this.http.get<ApiResponse<Paginator<Course>>>(`${this.API_URL}api/v1/courses?page=${page}&size=${size}`).subscribe((response) => {
-      console.log(response.response, " response back from server");
-      this.coursesRepo.setCourses(response.response);
-    }
-    )
   }
 
   getStudentCourses(keycloakId: string, page: number, size: number, filters: any = {}) {
@@ -56,23 +50,26 @@ export class CourseService {
     if(filters.levelId) params += `&levelId=${filters.levelId}`;
     if(filters.categoryId) params += `&categoryId=${filters.categoryId}`;
 
-    return this.http.get<ApiResponse<Paginator<CourseAndProgress>>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?${params}`)
+
+    const URL = `${this.COURSE_URL}/api/v1/courses/students/${keycloakId}?${params}`;
+    return this.http.get<ApiResponse<Paginator<CourseAndProgress>>>(`${URL}`)
       .pipe(
         tap((response) => {
           this.studentCoursesRepo.setCourses(response.response);
-          console.log(response.response, " response back from server");
         })
       )
   }
 
   createCourse(course: CourseDto){
-    return this.http.post<ApiResponse<number>>(`${this.API_URL}api/v1/courses`, course)
+    const URL = `${this.COURSE_URL}/api/v1/courses`;
+    return this.http.post<ApiResponse<number>>(URL, course)
 
   }
 
 
   getCourseById(id: number) {
-    return this.http.get<ApiResponse<Course>>(`${this.API_URL}api/v1/courses/${id}`)
+    const URL = `${this.COURSE_URL}/api/v1/courses/${id}`;
+    return this.http.get<ApiResponse<Course>>(`${URL}`)
   }
   uploadLogo(file: File, courseName: string) {
     const formDataRequest = new FormData();
@@ -82,8 +79,10 @@ export class CourseService {
     formDataRequest.append('file', file);
     formDataRequest.append('courseName', courseName);
     formDataRequest.append('bucketName', 'cognito-hub');
+
+    const URL = `${this.FILE_URL}/api/v1/files/logo`;
     // @ts-ignore
-    return this.http.post<ApiResponse<String>>('http://localhost:8001/api/v1/files/logo', formDataRequest, { headersR });
+    return this.http.post<ApiResponse<String>>(URL, formDataRequest, { headersR });
   }
 
   getCourseLogo(courseName: string) {
@@ -95,15 +94,20 @@ export class CourseService {
   }
 
   getSectionsByCourseId(courseId: number) {
-    return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/sections`)
+    const URL = `${this.COURSE_URL}/api/v1/courses/${courseId}/sections`;
+    //return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/sections`)
+    return this.http.get<ApiResponse<SectionDto[]>>(URL)
   }
 
   findSectionsById(courseId: number) {
-    return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/sections`)
+    const URL = `${this.COURSE_URL}/api/v1/courses/${courseId}/sections`;
+    //return this.http.get<ApiResponse<SectionDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/sections`)
+    return this.http.get<ApiResponse<SectionDto[]>>(URL)
   }
 
   saveSection(section: SectionDto, courseId: number) {
-    return this.http.post<ApiResponse<SectionDto>>(`${this.API_URL}api/v1/courses/${courseId}/sections`, section).subscribe(
+    const URL = `${this.COURSE_URL}/api/v1/courses/${courseId}/sections`;
+    return this.http.post<ApiResponse<SectionDto>>(URL, section).subscribe(
       data => {
         console.log(data);
       }
@@ -111,8 +115,9 @@ export class CourseService {
   }
 
   deleteSection(sectionId: number) {
+    const URL = `${this.COURSE_URL}/api/v1/sections/${sectionId}/status`;
     // @ts-ignore
-    return this.http.put<ApiResponse<String>>(`${this.API_URL}api/v1/sections/${sectionId}/status`).subscribe(
+    return this.http.put<ApiResponse<String>>(URL).subscribe(
       data => {
         console.log(data);
       }
@@ -127,8 +132,11 @@ export class CourseService {
     formDataRequest.append('file', file);
     formDataRequest.append('classId', classId.toString());
     formDataRequest.append('bucketName', 'cognito-hub');
+
+    const URL = `${this.FILE_URL}/api/v1/files`;
+
     // @ts-ignore
-    return this.http.post<ApiResponse<String>>('http://localhost:8001/api/v1/files', formDataRequest, { headersR });
+    return this.http.post<ApiResponse<String>>(URL, formDataRequest, { headersR });
   }
 
   findClassesBySectionId(sectionId: number) {
@@ -136,12 +144,17 @@ export class CourseService {
   }
 
   findClassesByCourseId(courseId: number) {
-    return this.http.get<ApiResponse<ClassDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/classes/all`)
+
+    const URL = `${this.COURSE_URL}/api/v1/courses/${courseId}/classes/all`;
+    //return this.http.get<ApiResponse<ClassDto[]>>(`${this.API_URL}api/v1/courses/${courseId}/classes/all`)
+    return this.http.get<ApiResponse<ClassDto[]>>(URL)
   }
 
 
   subToCourse(courseTitle: string, keycloakId: string) {
-    return this.http.post<ApiResponse<String>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?courseName=${courseTitle}`, null)
+    const URL = `${this.COURSE_URL}/api/v1/courses/students/${keycloakId}?courseName=${courseTitle}`;
+    //return this.http.post<ApiResponse<String>>(`${this.API_URL}api/v1/courses/students/${keycloakId}?courseName=${courseTitle}`, null)
+    return this.http.post<ApiResponse<String>>(URL, null)
   }
 
 

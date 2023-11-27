@@ -13,7 +13,7 @@ export class LevelService {
   constructor() { }
 
   getAllLevels() {
-    return this.http.get<ApiResponse<LevelDto[]>>(`${this.API_URL}/all`);
+    return this.http.get<ApiResponse<LevelDto[]>>(`http://localhost:8081/courses/api/v1/courses/level/all`);
   }
 
 }
