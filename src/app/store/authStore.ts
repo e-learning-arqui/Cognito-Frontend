@@ -9,7 +9,7 @@ export interface AuthProps {
   token: string;
   username: string;
   isLogged: boolean;
-  kcId: string;
+  kcId?: string;
 }
 
 
@@ -23,7 +23,7 @@ const authStore = createStore(
     token: '',
     username: '',
     isLogged: false,
-    kcId: '',
+    kcId: ''
   })
 );
 
@@ -54,7 +54,8 @@ export const persist = persistState(authStore, {
       token: '',
       username: '',
       isLogged: false,
-      group: '',
+      kcId: ''
+
     }
     ));
   }
