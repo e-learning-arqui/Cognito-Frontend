@@ -11,6 +11,7 @@ import { AssignmentDto } from '../model/dto/AssignmentDto';
 import { AssignmentStore } from '../store/assignmentStore';
 import { QuestionDto } from '../model/dto/QuestionDto';
 import { ScoreDto } from '../model/dto/ScoreDto';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ import { ScoreDto } from '../model/dto/ScoreDto';
 export class AssignmentService {
   //API_URL=`${AssignmentEnv.ASSIGNMENT_URL}/api/v1/assignment`;
   TYPE_URL=`${AssignmentEnv.ASSIGNMENT_URL}/api/v1/assignment-type`;
-  API_URL = 'http://localhost:8081';
+  API_URL = environment.API_URL;
   COURSE_URL=`${this.API_URL}/courses`;
   ASSIGNMENT_URL=`${this.API_URL}/assignments`;
 

@@ -10,6 +10,7 @@ import {CourseEnv} from "../environments/course";
 import {SectionDto} from "../model/dto/SectionDto";
 import {ClassDto} from "../model/dto/ClassDto";
 import {CourseAndProgress} from "../model/CourseAndProgress";
+import {environment} from "../../environments/environment";
 
 
 @Injectable({
@@ -20,8 +21,8 @@ export class CourseService {
   private http: HttpClient = inject(HttpClient)
   private coursesRepo = inject(CourseRepository);
   private studentCoursesRepo = inject(CourseRepository);
-  private COURSE_URL = 'http://localhost:8081/courses';
-  private FILE_URL = 'http://localhost:8081/files';
+  private COURSE_URL = environment.COURSE_URL;
+  private FILE_URL = environment.FILES_URL;
   constructor() {
 
   }

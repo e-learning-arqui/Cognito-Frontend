@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ApiResponse} from "../model/paginator";
 import {LanguageDto} from "../model/dto/LanguageDto";
 import {CourseEnv} from "../environments/course";
+import {environment} from "../../environments/environment";
 
 
 
@@ -11,7 +12,7 @@ import {CourseEnv} from "../environments/course";
 })
 export class LanguageService {
   API_URL = `${CourseEnv.COURSE_URL}/api/v1/courses`;
-  COURSE_URL = `http://localhost:8081/courses`;
+  COURSE_URL = environment.COURSE_URL;
   http: HttpClient = inject(HttpClient)
   constructor() { }
 

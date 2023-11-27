@@ -12,13 +12,20 @@ import {CourseEnv} from  '../environments/course';
 })
 export class StreamService {
   API_URL= CourseEnv.COURSE_URL;
+  COURSE_URL = 'http://localhost:8081/courses';
 
   constructor(
     private http: HttpClient,
     private streamStore: StreamStore) { }
 
   getKeys(id:number): Observable<StreamDto>{
-    return this.http.get<ApiResponse<StreamDto>>(`${this.API_URL}/api/v1/course/${id}/channel/stream`).pipe(
+    const URL = `${this.COURSE_URL}/api/v1/course/${id}/channel/stream`;
+    // return this.http.get<ApiResponse<StreamDto>>(`${this.API_URL}/api/v1/course/${id}/channel/stream`).pipe(
+    //   tap((response) => console.log(response)),
+    //   map((response: ApiResponse<StreamDto>) => response.response || ""),
+    //   tap((stream) => this.streamStore.setStream(stream))
+    // );
+    return this.http.get<ApiResponse<StreamDto>>(URL).pipe(
       tap((response) => console.log(response)),
       map((response: ApiResponse<StreamDto>) => response.response || ""),
       tap((stream) => this.streamStore.setStream(stream))
@@ -39,5 +46,5 @@ export class StreamService {
       tap((response) => console.log(response)),
     )
   }
-  
+
 }

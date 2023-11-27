@@ -4,13 +4,15 @@ import {ApiResponse} from "../model/api-response";
 import {CategoryDto} from "../model/dto/CategoryDto";
 import {SubCategoryDto} from "../model/dto/SubCategoryDto";
 import {CourseEnv} from "../environments/course";
+import {environment} from "../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
   API_URL = `${CourseEnv.COURSE_URL}/api/v1/category`;
-  COURSE_URL = 'http://localhost:8081/courses';
+
+  COURSE_URL = environment.COURSE_URL;
   http: HttpClient = inject(HttpClient)
   constructor() { }
 

@@ -6,6 +6,7 @@ import {ClassRepository} from "../store/classStore";
 import {tap} from "rxjs";
 import {UrlDto} from "../model/dto/UrlDto";
 import {ProgressMessageDto} from "../model/dto/ProgressMessagDto";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class ClassService {
   private classStore: ClassRepository = inject(ClassRepository);
   private API_URL = 'http://localhost:8001/api/v1/files';
 
-  private FILE_URL = 'http://localhost:8081/files';
-  private COURSE_URL = 'http://localhost:8081/courses';
+  private FILE_URL = environment.FILES_URL;
+  private COURSE_URL = environment.COURSE_URL;
   constructor() { }
 
   findClassesByCourseId(courseId: number){
