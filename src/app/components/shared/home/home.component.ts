@@ -22,12 +22,13 @@ export class HomeComponent {
     this.setPropsFromKeycloak();
   }
 
-  setPropsFromKeycloak(){
+  async setPropsFromKeycloak() {
+
     this.authRepository.setAuthProps({
       token: this.keycloakService.getKeycloakInstance().token!,
       username: this.keycloakService.getKeycloakInstance().tokenParsed!['preferred_username']!,
       isLogged: this.keycloakService.getKeycloakInstance().authenticated!,
-      kcId: this.keycloakService.getKeycloakInstance().tokenParsed!['realm_access']!['roles']![0]!
+      kcId: this.keycloakService.getKeycloakInstance().subject!
     });
   }
 

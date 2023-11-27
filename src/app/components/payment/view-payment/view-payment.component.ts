@@ -7,6 +7,7 @@ import { SubscriptionTypeDto } from 'src/app/model/dto/SubscriptionTypeDto';
 import { PaymentService } from 'src/app/services/payment.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { CardStore } from 'src/app/store/cardStore';
+import {UserService} from "../../../services/user.service";
 
 
 
@@ -21,7 +22,7 @@ export class ViewPaymentComponent implements OnInit {
 
   userCards: Card[] = [];
   keycloakService: KeycloakService = inject(KeycloakService);
-
+  private userService: UserService = inject(UserService);
   constructor(
     private sharedDataService: SharedDataService,
     private paymentService: PaymentService,
@@ -50,10 +51,11 @@ export class ViewPaymentComponent implements OnInit {
         cardId: this.selectedCardId,
         subscriptionTypeId: this.selectedPlan.id
       };
-  
+
       this.paymentService.addSubscription(subscriptionSend).subscribe({
         next: (response) => {
           console.log('Suscripción realizada con éxito', response);
+          this.updateSubscription();
         },
         error: (error) => {
           console.error('Error al realizar la suscripción', error);
@@ -67,7 +69,15 @@ export class ViewPaymentComponent implements OnInit {
   navigateToAddCard() {
     this.router.navigate(['/add-card']);
   }
-  
+
+  updateSubscription() {
+    this.userService.updateSubscription(this.keycloakService.getKeycloakInstance().subject!).subscribe(
+      (response) => {
+        console.log('Suscripción actualizada con éxito', response);
+
+      })
+
+  }
 
 }
 
@@ -85,7 +95,7 @@ import { CardStore } from 'src/app/store/cardStore';
 })
 export class ViewPaymentComponent {
   keycloakService: KeycloakService = inject(KeycloakService);
-  
+
   paymentService: PaymentService = inject(PaymentService);
   constructor(public cardStore: CardStore) { }
   ngOnInit(): void {

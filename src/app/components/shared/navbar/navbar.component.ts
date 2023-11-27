@@ -3,6 +3,7 @@ import {MenuItem} from "primeng/api";
 import {HomeComponent} from "../home/home.component";
 import {KeycloakService} from "keycloak-angular";
 import {AuthRepository} from "../../../store/authStore";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,8 @@ export class NavbarComponent implements OnInit{
   authRepository: AuthRepository = inject(AuthRepository);
   auth$ = this.authRepository.auth$;
   authProps = this.authRepository.getCourseProps();
-
+  router: Router = inject(Router);
+  kcId = this.keycloakService.getKeycloakInstance().subject!;
 
   ngOnInit() {
 
@@ -44,15 +46,17 @@ export class NavbarComponent implements OnInit{
             icon: 'pi pi-fw pi-card',
             routerLink: ['/user-subscriptions']
           },
+          this.authProps.isLogged ?
           {
             label: 'Mis Cursos',
             icon: 'pi pi-fw pi-calendar-plus',
-            routerLink: [this.authProps.isLogged ? `/courses/student/${this.authProps.kcId}` : this.login()]
-          }
+            routerLink: [`/courses/student/${this.authProps.kcId}`]
+          }:
+            {}
+
 
         ]
       },
-      //TODO agregar el icono de usuario y la lógica para que inicie sesión o editar perfil
       { label: this.authProps.isLogged ? `${this.authProps.username}` : `Iniciar Sesión`
         , icon: 'pi pi-fw pi-user',  command: () => this.login()
       },
@@ -77,13 +81,16 @@ export class NavbarComponent implements OnInit{
       token: this.keycloakService.getKeycloakInstance().token!,
       username: this.keycloakService.getKeycloakInstance().tokenParsed!['preferred_username']!,
       isLogged: true,
-      kcId: this.keycloakService.getKeycloakInstance().tokenParsed!['sub']!
+      kcId: this.keycloakService.getKeycloakInstance().subject!
+
     });
   }
 
   logout() {
-    this.keycloakService.logout();
     this.authRepository.logout();
+
+    this.keycloakService.logout().then(r => console.log(r));
+
   }
 
 }
