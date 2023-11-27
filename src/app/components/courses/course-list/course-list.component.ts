@@ -51,8 +51,8 @@ export class CourseListComponent{
     this.courseService.getCourses( 0, this.rows!  ).subscribe(
       (response) => {
         this.courses = response.response.content;
+        console.log(response.response.content, " response back from server");
         //this.courseRepo.setCourses(response.response);
-
       }
     )
     this.course$.subscribe((response) => {
