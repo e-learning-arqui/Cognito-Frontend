@@ -192,6 +192,11 @@ export class SectionFormComponent {
 
   }
 
+  goToLives(){
+    this.router.navigate([`courses/${this.route.snapshot.params['id']}/live/view`]);
+
+  }
+
 }
 
 
