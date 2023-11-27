@@ -5,6 +5,11 @@ import { AssignmentService } from 'src/app/services/assignment.service';
 import { AssignmentStore } from 'src/app/store/assignmentStore';
 import {ConfirmationService, MessageService, SelectItemGroup} from "primeng/api";
 import { KeycloakService } from 'keycloak-angular';
+import { DatePipe } from '@angular/common';
+import { SectionDto } from 'src/app/model/dto/SectionDto';
+import { CourseService } from 'src/app/services/course.service';
+import { ScoreDto } from 'src/app/model/dto/ScoreDto';
+
 
 
 @Component({
@@ -13,9 +18,14 @@ import { KeycloakService } from 'keycloak-angular';
   styleUrls: ['./assignment-list.component.css']
 })
 export class AssignmentListComponent {
+  displayScoreModal: boolean = false;
+  scoreDto: ScoreDto | null = null;
   assignmentService: AssignmentService= inject(AssignmentService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   keycloak : KeycloakService = inject(KeycloakService);
+  sections: SectionDto[] = [];
+  sectionsMap: { [sectionId: number]: AssignmentDto[] } = {};
+
 
 
   confirmationService: ConfirmationService = inject(ConfirmationService);
@@ -23,18 +33,25 @@ export class AssignmentListComponent {
 
   constructor(
     public assignmentStore: AssignmentStore,
-    private router: Router
-
+    private router: Router,
+    private courseService: CourseService,
   ){} 
 
   ngOnInit(): void{
-    this.assignmentService.getAssignments(this.route.snapshot.params['id']).subscribe();
+    const courseId = this.route.snapshot.params['id'];
+    //this.assignmentService.getAssignments(courseId).subscribe();
+    this.assignmentService.getAssignments(courseId).subscribe(assignments => {
+      this.courseService.findSectionsById(courseId).subscribe(sections => {
+        this.sections = sections.response;
+        this.initializeSectionsMap(sections.response, assignments);
+      });
+    });
   }
-
+/*
   onSubscribe( assignment: AssignmentDto){
     this.router.navigate(['/courses',{ assignmentId: assignment.id }]); 
   }
-
+*/
 
   confirm(event: Event, assignmentId: number){
     this.confirmationService.confirm({
@@ -60,5 +77,41 @@ export class AssignmentListComponent {
       }
     });
   }
+
+
+
+  private initializeSectionsMap(sections: SectionDto[], assignments: AssignmentDto[]): void {
+    // Inicializar el mapa de secciones con arrays vacíos
+    sections.forEach(section => {
+      if (typeof section.id !== 'undefined') {
+        this.sectionsMap[section.id] = [];
+      }
+    });
+  
+    // Asignar cada examen a su sección correspondiente
+    assignments.forEach(assignment => {
+      if (typeof assignment.sectionId !== 'undefined' && this.sectionsMap.hasOwnProperty(assignment.sectionId)) {
+        this.sectionsMap[assignment.sectionId].push(assignment);
+      }
+    });
+  }
+  
+  getAssignmentsBySection(sectionId?: number): AssignmentDto[] {
+    if (typeof sectionId === 'undefined') {
+      return [];
+    }
+    return this.sectionsMap[sectionId] || [];
+  }
+  showScore(assignmentId: number) {
+    const keycloakId = this.keycloak.getKeycloakInstance().subject!;
+    this.assignmentService.getScore(assignmentId, keycloakId).subscribe(response => {
+        if (response.response.score !== -1) {
+            this.scoreDto = response.response;
+        } else {
+            this.scoreDto = null;
+        }
+        this.displayScoreModal = true;
+    });
+} 
 
 }

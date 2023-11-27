@@ -9,4 +9,24 @@
     border-color: #1bd592;
     color: #333333;
   }
-  
+
+.section-header {
+  background-color: #343a40; 
+  border-radius: 0.25rem; 
+}
+
+.card {
+  border: 0; 
+  border-radius: 0.5rem; 
+}
+
+.btn-primary {
+  border-radius: 0.25rem; /* Bordes redondeados para el botón */
+}
+
+.divider {
+  height: 4px;
+  background-color: #ddd; /* Color de la línea */
+  margin: 2rem 0; 
+}
+

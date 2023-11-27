@@ -37,7 +37,9 @@
           <p class="card-text" style="font-size: 14px">{{ course.description }}</p>
         </div>
         <div class="card-footer d-flex justify-content-center">
-          <button pButton type="button" label="Comenzar" icon="pi pi-check" class="btn btn-custom" (click)="subToCourse(course.title)"></button>
+          <button pButton type="button" label="Comenzar" icon="pi pi-check" class="btn btn-custom me-2" (click)="subToCourse(course.title)"></button>
+          <button pButton type="button" label="Ir al Curso" icon="pi pi-check" class="btn btn-custom" (click)="goToSections(course.id)"></button>
+
         </div>
       </div>
     </div>

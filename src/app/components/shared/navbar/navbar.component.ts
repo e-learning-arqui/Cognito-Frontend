@@ -41,11 +41,7 @@ export class NavbarComponent implements OnInit{
             icon: 'pi pi-fw pi-plus',
             routerLink: ['/courses/create']
           },
-          {
-            label: 'Editar Perfil',
-            icon: 'pi pi-fw pi-card',
-            routerLink: ['/user-subscriptions']
-          },
+
           this.authProps.isLogged ?
           {
             label: 'Mis Cursos',

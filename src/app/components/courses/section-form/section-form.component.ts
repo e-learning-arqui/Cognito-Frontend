@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {MenuItem, TreeNode} from "primeng/api";
+import {ConfirmationService, MenuItem, MessageService, TreeNode} from "primeng/api";
 import {ClassDto} from "../../../model/dto/ClassDto";
 import {LevelDto} from "../../../model/dto/LevelDto";
 import {CategoryDto} from "../../../model/dto/CategoryDto";
@@ -10,6 +10,9 @@ import {SectionDto} from "../../../model/dto/SectionDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ClassService} from "../../../services/class.service";
+import { StreamService } from 'src/app/services/stream.service';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 interface Column{
   field: string;
@@ -30,6 +33,10 @@ export class SectionFormComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private classService: ClassService = inject(ClassService);
   private router : Router = inject(Router);
+  streamService: StreamService= inject(StreamService);  
+
+  confirmationService: ConfirmationService = inject(ConfirmationService);
+  messageService: MessageService = inject(MessageService);
 
 
   sections!: TreeNode<any>[];
@@ -47,7 +54,7 @@ export class SectionFormComponent {
   file: File | undefined;
 
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     this.newSectionForm = this.formBuilder.group({
       title: [''],
       description: [''],
@@ -147,6 +154,42 @@ export class SectionFormComponent {
   goToclassList(sectionId: number){
     this.classService.setSectionUrl(sectionId);
     this.router.navigate([`courses/${this.route.snapshot.params['id']}/sections/${sectionId}/classes`]);
+  }
+
+  confirm(event: Event){
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: '¿Estás seguro de iniciar un live?',
+      icon: 'pi pi-check-square',
+      accept: () => {
+        this.streamService.getVerification(this.route.snapshot.params['id']).subscribe((response) => {
+          if(response.response === false){
+              console.log("creando canal")
+              this.streamService.createChannel(this.route.snapshot.params['id']).subscribe((response)=>{
+                console.log("channel created")
+              });              
+          }
+          this.goToOtherApp(); 
+        }); 
+      },
+      reject: () => {
+        this.messageService.add({severity:'error', summary:'Cancelado', detail:'Se cancelo el iniciar el live'});
+      }
+    });
+  }
+
+  goToOtherApp(): void {
+    const courseId = this.route.snapshot.params['id']; // Obtén el id del curso
+    window.location.href = `http://localhost:3000/?courseId=${courseId}`; // Redirige a React con el id en la URL
+  }
+
+  addAssignment(){
+    this.router.navigate([`courses/${this.route.snapshot.params['id']}/assignment/create`]);
+  }
+
+  viewAssignment(){
+    this.router.navigate([`courses/${this.route.snapshot.params['id']}/assignment`]);
+
   }
 
 }

@@ -20,22 +20,12 @@
     assignmentService: AssignmentService = inject(AssignmentService);
     courseService: CourseService = inject(CourseService);
     private route: ActivatedRoute = inject(ActivatedRoute);
-    /*
 
-    constructor(private fb: FormBuilder, private router: Router) {
-      this.assignmentForm = this.fb.group({
-        title: [''],
-        description: [''],
-        assignmentTypeId: [''],
-        sectionId: [''],
-        questions: this.fb.array([])
-      });
-    }*/
     constructor(private fb: FormBuilder,     private router: Router    ) {
       this.assignmentForm = this.fb.group({
         title: [''],
         assignmentTypeId: [1],
-        sectionId: [1],
+        sectionId: [null],
         courseId: [+this.route.snapshot.params['id']],
         questions: this.fb.array([])
       });
@@ -74,6 +64,19 @@
       (this.questions.at(questionIndex).get('options') as FormArray).push(optionGroup);
     }
 
+    onSectionChange(event: { value: { id: number }; }) {
+      this.assignmentForm.get('sectionId')?.setValue(event.value.id);
+    }
+    getSections() {
+      this.courseService.findSectionsById(this.route.snapshot.params['id']).subscribe((response) => {
+        this.sections = response.response;
+        if (this.sections && this.sections.length > 0) {
+          // Asignar el ID de la primera sección como valor por defecto
+          this.assignmentForm.get('sectionId')?.setValue(this.sections[0].id);
+        }
+      });
+    }
+  
 
     getOptions(question: AbstractControl): FormArray {
       return question.get('options') as FormArray;
@@ -105,23 +108,13 @@
       });
     }
 
-    getSections(){
-      this.courseService.findSectionsById(this.route.snapshot.params['id']).subscribe((response)=>{
-        this.sections=response.response
-      });
-
-
-    }
-    onAssignmentTypeChange(event: { value: { id: any; }; }) {
-      // Asumiendo que event.value es el objeto seleccionado
-      const selectedId = event.value ? event.value.id : null;
-      this.assignmentForm.get('assignmentTypeId')?.setValue(selectedId);
+  
+  
+    onAssignmentTypeChange(event: any) {
+      console.log(event); // Para depurar
+      this.assignmentForm.get('assignmentTypeId')?.setValue(event.value.id);
     }
 
-    onSectionChange(event: { value: { sectionId: any; }; }) {
-      const selectedId = event.value ? event.value.sectionId : null;
-      this.assignmentForm.get('sectionId')?.setValue(selectedId);
-    }
 
     onSubmit() {
       console.log(this.assignmentForm.value);
@@ -130,7 +123,7 @@
           .subscribe({
             next: (response: any) => {
               console.log('Assignment creado con éxito', response);
-              this.router.navigate(['/']);
+              this.router.navigate([`/courses/${this.route.snapshot.params['id']}/sections`]);
 
 
             },
