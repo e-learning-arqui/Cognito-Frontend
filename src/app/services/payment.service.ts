@@ -20,28 +20,32 @@ export class PaymentService {
   ) { }
 
   //Agregar tarjeta
-  
+
   addCard(card: CardDto) {
-    return this.http.post<ApiResponse<number>>(`${this.API_URL}/users/card`, card);
+    const url = `http://localhost:8081/ms-user/api/v1/users/card`
+    return this.http.post<ApiResponse<number>>(`${url}`, card);
   }
 
   //Obtener tarjetas por usuario
 
   getCards(id: String): Observable<Card[]> {
-    return this.http.get<ApiResponse<Card[]>>(`${this.API_URL}/users/${id}/card`).pipe(
+    const url = `http://localhost:8081/ms-user/api/v1/users/${id}/card`
+    console.log(this.API_URL);
+    return this.http.get<ApiResponse<Card[]>>(`${url}`).pipe(
       tap((response) => console.log(response)),
       map((response: ApiResponse<Card[]>) => response.response || []),
       tap((cards) => this.CardStore.setCard(cards)),
     );
-    
+
   }
 
-  //Agregar subscripcion 
+  //Agregar subscripcion
 
   addSubscription(subscriptionSend: SubscriptionSend) {
+    const url = `http://localhost:8081/payments/api/v1/subscription`
     return this.http.post<ApiResponse<number>>(`${this.Sub_URL}/subscription`, subscriptionSend);
   }
 
 
-  
+
 }

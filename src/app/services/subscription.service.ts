@@ -22,7 +22,7 @@ export class SubscriptionService {
 
 
   getSubscriptionType(): Observable<SubscriptionTypeDto[]>{
-    return this.http.get<ApiResponse<SubscriptionTypeDto[]>>('http://localhost:7400/api/v1/subscriptionType').pipe(
+    return this.http.get<ApiResponse<SubscriptionTypeDto[]>>('http://localhost:8081/payments/api/v1/subscriptionType').pipe(
       tap((response) => console.log(response)),
       map((response: ApiResponse<SubscriptionTypeDto[]>) => response.response || []),
       tap((subscriptionType) => this.subscriptionTypeStore.setSubscriptionType(subscriptionType)),

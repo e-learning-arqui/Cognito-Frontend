@@ -22,7 +22,7 @@ export class UserService {
   }
 
   updateSubscription(studentKcId: string){
-    return this.http.put<ApiResponse<string>>( `http://localhost:8081/users/api/v1/users/student/${studentKcId}/subscription`, null);
+    return this.http.put<ApiResponse<string>>( `http://localhost:8081/ms-user/api/v1/users/student/${studentKcId}/subscription`, null);
 
   }
 }
