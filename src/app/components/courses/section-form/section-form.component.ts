@@ -11,6 +11,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ClassService} from "../../../services/class.service";
 import { StreamService } from 'src/app/services/stream.service';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 interface Column{
   field: string;
@@ -52,7 +54,7 @@ export class SectionFormComponent {
   file: File | undefined;
 
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     this.newSectionForm = this.formBuilder.group({
       title: [''],
       description: [''],
