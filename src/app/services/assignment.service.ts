@@ -16,9 +16,12 @@ import { ScoreDto } from '../model/dto/ScoreDto';
   providedIn: 'root'
 })
 export class AssignmentService {
-  API_URL=`${AssignmentEnv.ASSIGNMENT_URL}/api/v1/assignment`;
+  //API_URL=`${AssignmentEnv.ASSIGNMENT_URL}/api/v1/assignment`;
   TYPE_URL=`${AssignmentEnv.ASSIGNMENT_URL}/api/v1/assignment-type`;
-  COURSE_URL=`${CourseEnv.COURSE_URL}/api/v1/courses`;
+  API_URL = 'http://localhost:8081';
+  COURSE_URL=`${this.API_URL}/courses`;
+  ASSIGNMENT_URL=`${this.API_URL}/assignments`;
+
 
   constructor(
     private http: HttpClient,
@@ -29,7 +32,7 @@ export class AssignmentService {
 
 
   getAssignmentType(){
-    return this.http.get<ApiResponse<AssignmentTypeDto[]>>(`${this.TYPE_URL}`);
+    return this.http.get<ApiResponse<AssignmentTypeDto[]>>(`${this.ASSIGNMENT_URL}/api/v1/assignment-type`);
 
   }
 
@@ -38,11 +41,13 @@ export class AssignmentService {
   }
 
   createAssignment(assignmentData: any) {
-    return this.http.post(this.API_URL, assignmentData);
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment`;
+    return this.http.post(URL, assignmentData);
   }
 
   getAssignments(id: number): Observable<AssignmentDto[]>{
-    return this.http.get<ApiResponse<AssignmentDto[]>>(`${this.API_URL}/all/${id}`).pipe(
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment/all/${id}`;
+    return this.http.get<ApiResponse<AssignmentDto[]>>(URL).pipe(
       tap((response) => console.log(response)),
       map((response: ApiResponse<AssignmentDto[]>)=> response.response || []),
       tap((assignment)=> this.assignmentStore.setAssignment(assignment))
@@ -51,25 +56,31 @@ export class AssignmentService {
   }
 
   getVerification(id:number, keycloakId: String){
-    return this.http.get<ApiResponse<Boolean>>(`${this.API_URL}/${id}/user/${keycloakId}`)
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment/${id}/user/${keycloakId}`
+    return this.http.get<ApiResponse<Boolean>>(URL)
   }
 
   updateVerification(id:number, keycloakId:String){
-    return this.http.put(`${this.API_URL}/${id}/user/${keycloakId}`,{})
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment/${id}/user/${keycloakId}`
+    return this.http.put(URL,{})
   }
-  
+
 
   getQuestions(assignmentId: number){
-    return this.http.get<ApiResponse<QuestionDto[]>>(`${this.API_URL}/${assignmentId}/questions`)
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment/${assignmentId}/questions`
+    return this.http.get<ApiResponse<QuestionDto[]>>(URL)
   }
 
   createStudentAssignment(assignmentData: any, assignmentId:number){
-    return this.http.post(`${this.API_URL}/${assignmentId}`,assignmentData)
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment/${assignmentId}`
+    return this.http.post(URL,assignmentData)
   }
 
 
   getScore(assignmentId: number, keycloakId: String){
-    return this.http.get<ApiResponse<ScoreDto>>(`${this.API_URL}/${assignmentId}/score/user/${keycloakId}`)
+    const URL = `${this.ASSIGNMENT_URL}/api/v1/assignment/${assignmentId}/score/user/${keycloakId}`
+    //return this.http.get<ApiResponse<ScoreDto>>(`${this.API_URL}/${assignmentId}/score/user/${keycloakId}`)
+    return this.http.get<ApiResponse<ScoreDto>>(URL)
   }
 
 

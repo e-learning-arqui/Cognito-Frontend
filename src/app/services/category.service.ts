@@ -10,15 +10,18 @@ import {CourseEnv} from "../environments/course";
 export class CategoryService {
 
   API_URL = `${CourseEnv.COURSE_URL}/api/v1/category`;
+  COURSE_URL = 'http://localhost:8081/courses';
   http: HttpClient = inject(HttpClient)
   constructor() { }
 
   getAllCategories() {
-    return this.http.get<ApiResponse<CategoryDto[]>>(  `${this.API_URL}/all`);
+    const URL = `${this.COURSE_URL}/api/v1/category/all`;
+    return this.http.get<ApiResponse<CategoryDto[]>>(  URL);
   }
 
   getSubCategoriesByCategoryId(categoryId: number) {
-    return this.http.get<ApiResponse<SubCategoryDto[]>>(`${this.API_URL}/${categoryId}/subcategory`);
+    const URL = `${this.COURSE_URL}/api/v1/category/${categoryId}/subcategory`;
+    return this.http.get<ApiResponse<SubCategoryDto[]>>(URL);
   }
 
 }
